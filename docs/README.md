@@ -1,12 +1,12 @@
 # 크리스마스 프로모션 프로젝트
 ## 핵심 기능
-**핵심기능**
+**방문 예정 날짜에 따른 적용대상 이벤트 혜택들을 계산한다.**
 
 ## 기능 목록
 **목표**
-    - [ ] 중복된 할인과 증정을 허용해서, 고객들이 혜택을 많이 받는다는 것을 체감할 수 있게 한다.
-    - [ ] 올해 12월에 지난 5년 중 최고의 판매 금액을 달성한다.
-    - [ ] 12월 이벤트 참여 고객의 5% (이상)이 내년 1월 새해 이벤트에 재참여하기
+  - [ ] 중복된 할인과 증정을 허용해서, 고객들이 혜택을 많이 받는다는 것을 체감할 수 있게 한다.
+  - [ ] 올해 12월에 지난 5년 중 최고의 판매 금액을 달성한다.
+  - [ ] 12월 이벤트 참여 고객의 5% (이상)이 내년 1월 새해 이벤트에 재참여하기
 
 ## 시퀀스 다이어그램
 - [ ] 메뉴 정보를 초기화한다.
@@ -90,7 +90,7 @@
   - [ ] 할인 금액의 합계 + 증정 메뉴의 가격
 - [ ] 할인 후 예상 결제 금액을 계산한다.
   - [ ] 할인 후 예상 결제 금액 = 할인 전 총주문 금액 - 할인 금액
-- [ ] 12월 이벤트 배지를 부여한다.
+- [ ] **총혜택 금액에 따라** 12월 이벤트 배지를 부여한다.
   - 5천 원 이상: 별 
   - 1만 원 이상: 트리
   - 2만 원 이상: 산타
@@ -166,3 +166,52 @@
   없음
   ```
 
+## 도메인 모델
+### EventCalculatorAdapter
+1. 역할 : 방문 날짜에 해당되는 이벤트들을 적용시켜주는 역할 
+2. 상태
+3. 행위 
+   - public boolean supports(Day day, Money priceBeforeDiscount)
+   - public Money discountPrice(Order order)
+4. 구현 객체 
+   - ChristmasDayCalculator 
+   - WeekdayCalculator 
+   - WeekendCalculator 
+   - SpecialCalculator 
+   - PresentationCalculator
+
+### Event
+1. 역할 : 이벤트 종류별로 날짜 정보를 갖는 열거형
+2. 상태 : CHRISTMAS_D_DAY_EVENT, WEEKDAY_EVENT, WEEKEND_EVENT, SPECIAL_EVENT, PRESENTATION_EVENT 
+   - 각 상태가 갖는 멤버변수 : Day, List menues
+3. 행위
+   - boolean isApplied(Day day)
+
+### BenefitCalculator
+1. 역할 : 혜택 금액을 계산하는 역할
+2. 상태 : int priceBeforeDiscount, EnumMap<Event, Integer> benefitPriceForEachEvent
+3. 행위 
+  - public void calculateBenefits(Day day, List menues)
+  - public BenefitDetails generateBenefitDetails()
+   - private Money totalBenefitPrice()
+   - private Money expectedPaymentAmount()
+
+### MenuKind
+1. 역할 : 메뉴 유형 정보를 갖는 열거형
+2. 상태 : APPETIZER, MAIN, DESSERT, BEVERAGE
+3. 행위
+   - boolean isKindOf(Menu menu)
+
+### Menu
+1. 역할 : 메뉴 정보를 갖는 열거형
+2. 상태 : BUTTON_MUSHROOM_SOUP, TAPAS, CAESAR_SALAD, T_BONE_STEAK, BARBCUE_RIBS, SEAFOOD_PASTA, CHRISTMAS_PASTA, CHOCOLATE_CAKE, ICE_CREAM, COKE_ZERO, RED_WINE, CHAMPAGNE
+   - 각 상태가 갖는 변수 : Money price, String name
+3. 행위
+   - Money getPrice()
+   - String geName()
+
+### BadgeGiver
+1. 역할 : 이벤트 배지를 부여하는 역할
+2. 상태
+3. 행위
+   - public Badge getBadge(Money totalBenefitAmount)
