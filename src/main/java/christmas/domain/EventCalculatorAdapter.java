@@ -6,5 +6,5 @@ import christmas.vo.Order;
 
 public interface EventCalculatorAdapter {
     boolean supports(Day day, Money priceBeforeDiscount);
-    Money discountPrice(Order order);
+    int discountPrice(Order order);
 }

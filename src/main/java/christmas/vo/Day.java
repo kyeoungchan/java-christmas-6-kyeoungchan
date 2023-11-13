@@ -24,6 +24,18 @@ public class Day {
         return date % ConstantDate.FRIDAY_UNIT_DATE.getDate() == ConstantDate.SATURDAY_UNIT_DATE.getDate();
     }
 
+    public boolean isWeekday() {
+        return !isWeekend();
+    }
+
+    public boolean isWeekend() {
+        return isFriday() || isSaturday();
+    }
+
+    public int getDate() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
