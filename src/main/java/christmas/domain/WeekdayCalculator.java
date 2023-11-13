@@ -16,12 +16,12 @@ public class WeekdayCalculator implements EventCalculatorAdapter {
 
     @Override
     public int discountPrice(Order order) {
-        int mainMenuCount = countDessertMenu(order);
-        return -1 * mainMenuCount * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount();
+        int dessertMenuCount = countDessertMenu(order);
+        return -1 * dessertMenuCount * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount();
     }
 
     private int countDessertMenu(Order order) {
-        return order.menues().entrySet()
+        return order.menuCount().entrySet()
                 .stream()
                 .filter(entry -> MenuKind.DESSERT.isKindOf(entry.getKey()))
                 .mapToInt(Map.Entry::getValue)
