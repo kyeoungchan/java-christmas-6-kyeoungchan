@@ -17,7 +17,8 @@ public class WeekdayCalculator implements EventCalculatorAdapter {
     @Override
     public int discountPrice(Order order) {
         int dessertMenuCount = countDessertMenu(order);
-        return -1 * dessertMenuCount * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount();
+        return dessertMenuCount * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
+                * ConstantMoney.SIGN_INVERTER.getAmount();
     }
 
     private int countDessertMenu(Order order) {

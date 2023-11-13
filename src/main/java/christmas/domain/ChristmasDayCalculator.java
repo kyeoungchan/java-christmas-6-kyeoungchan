@@ -15,7 +15,8 @@ public class ChristmasDayCalculator implements EventCalculatorAdapter {
     @Override
     public int discountPrice(Order order) {
         Day visitingDay = order.visitingDay();
-        return -1 * calculateDiscountAmount(visitingDay);
+        return calculateDiscountAmount(visitingDay)
+                * ConstantMoney.SIGN_INVERTER.getAmount();
     }
 
     private int calculateDiscountAmount(Day visitingDay) {
