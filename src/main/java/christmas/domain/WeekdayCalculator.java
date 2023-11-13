@@ -20,7 +20,7 @@ public class WeekdayCalculator implements EventCalculatorAdapter {
         return -1 * mainMenuCount * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount();
     }
 
-    private static int countMainMenu(Order order) {
+    private int countMainMenu(Order order) {
         return order.menues().entrySet()
                 .stream()
                 .filter(entry -> MenuKind.DESSERT.isKindOf(entry.getKey()))
