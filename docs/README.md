@@ -223,3 +223,6 @@
    - private void validate(int date)
    - boolean isFriday()
    - boolean isSaturday()
+   - boolean isWeekday()
+   - boolean isWeekend()
+   - int daysFromFirstDate()
