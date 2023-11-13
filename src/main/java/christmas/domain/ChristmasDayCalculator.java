@@ -1,6 +1,5 @@
 package christmas.domain;
 
-import christmas.consts.ConstantDate;
 import christmas.consts.ConstantMoney;
 import christmas.vo.Day;
 import christmas.vo.Money;
@@ -20,7 +19,7 @@ public class ChristmasDayCalculator implements EventCalculatorAdapter {
     }
 
     private int calculateDiscountAmount(Day visitingDay) {
-        return (visitingDay.getDate() - ConstantDate.CALCULATE_UNIT_FOR_CHRISTMAS_DAY_EVENT.getDate())
+        return visitingDay.daysFromFirstDate()
                 * ConstantMoney.INCREASE_UNIT_FOR_CHRISTMAS_DAY_EVENT.getAmount()
                 + ConstantMoney.INITIAL_DISCOUNT_AMOUNT_FOR_CHRISTMAS_DAY_EVENT.getAmount();
     }

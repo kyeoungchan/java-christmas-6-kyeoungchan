@@ -32,8 +32,8 @@ public class Day {
         return isFriday() || isSaturday();
     }
 
-    public int getDate() {
-        return date;
+    public int daysFromFirstDate() {
+        return date - ConstantDate.CALCULATE_UNIT_FOR_CHRISTMAS_DAY_EVENT.getDate();
     }
 
     @Override
