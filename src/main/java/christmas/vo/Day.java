@@ -21,7 +21,7 @@ public class Day {
     }
 
     public boolean isSaturday() {
-        return date % ConstantDate.FRIDAY_UNIT_DATE.getDate() == ConstantDate.SATURDAY_UNIT_DATE.getDate();
+        return date % ConstantDate.WEEK_UNIT.getDate() == ConstantDate.SATURDAY_UNIT_DATE.getDate();
     }
 
     public boolean isWeekday() {
