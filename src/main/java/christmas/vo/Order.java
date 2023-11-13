@@ -2,7 +2,7 @@ package christmas.vo;
 
 import christmas.consts.Menu;
 
-import java.util.List;
+import java.util.EnumMap;
 
-public record Order(Day visitingDay, List<Menu> menues) {
+public record Order(Day visitingDay, EnumMap<Menu, Integer> menues) {
 }
