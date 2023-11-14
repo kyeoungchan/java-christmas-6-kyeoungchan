@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class EventCalculatorsManagerTest {
     private final EventCalculatorsManager eventCalculatorsManager = new EventCalculatorsManager();
-    private final EnumMap<Menu, Integer> orderMenus = new EnumMap<Menu, Integer>(Menu.class);
+    private final EnumMap<Menu, Integer> orderMenus = new EnumMap<>(Menu.class);
     private Money totalPrice;
 
     @BeforeEach
@@ -31,7 +31,8 @@ class EventCalculatorsManagerTest {
     @DisplayName("1일이면 크리스마스 D-Day 할인과 주말 할인을 적용받고, 총주문 금액이 12만원 미만인 것까지 계산한다.")
     void generateEventsResultFirstDay() {
         Day visitingDay = new Day(1);
-        EventsResult eventsResult = eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
+        EventsResult eventsResult = eventCalculatorsManager
+                .generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
         assertThat(benefitAmounts.keySet().stream().toList())
                 .containsExactly(Event.CHRISTMAS_D_DAY_EVENT, Event.WEEKEND_EVENT);
@@ -44,8 +45,7 @@ class EventCalculatorsManagerTest {
     void generateEventsResultWithPresent() {
         Day visitingDay = new Day(1);
         orderMenus.put(Menu.RED_WINE, 1); // 60_000
-        int updatedTotalAmount = totalPrice.getAmount() + Menu.RED_WINE.getAmount();
-        totalPrice = new Money(updatedTotalAmount);
+        totalPrice = new Money(totalPrice.getAmount() + Menu.RED_WINE.getAmount());
         EventsResult eventsResult =
                 eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
@@ -60,7 +60,8 @@ class EventCalculatorsManagerTest {
     void generateEventResultChristmas() {
         Day visitingDay = new Day(25);
         orderMenus.put(Menu.ICE_CREAM, 1);
-        EventsResult eventsResult = eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
+        EventsResult eventsResult = eventCalculatorsManager
+                .generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
         assertThat(benefitAmounts.keySet().stream().toList())
                 .containsExactly(Event.WEEKDAY_EVENT, Event.SPECIAL_EVENT);
@@ -72,7 +73,8 @@ class EventCalculatorsManagerTest {
     @DisplayName("25일이어도 디저트 메뉴가 없으면 평일 할인은 해당되지 않는다.")
     void generateEventResultChristmasNoDessert() {
         Day visitingDay = new Day(25);
-        EventsResult eventsResult = eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
+        EventsResult eventsResult = eventCalculatorsManager
+                .generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
         assertThat(benefitAmounts.keySet().stream().toList())
                 .containsExactly(Event.SPECIAL_EVENT);
