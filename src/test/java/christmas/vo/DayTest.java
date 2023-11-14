@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DayTest {
     private final List<Integer> fridays = List.of(1, 8, 15, 22, 29);
     private final List<Integer> saturdays = List.of(2, 9, 16, 23, 30);
+    private final List<Integer> sundays = List.of(3, 10, 17, 24, 31);
     private final List<Integer> allDays = new ArrayList<>();
 
     @BeforeEach
@@ -30,7 +31,7 @@ class DayTest {
             assertThat(day.isFriday()).isTrue();
         });
     }
-    
+
     @Test
     @DisplayName("12월은 1, 8, 15, 22, 29 외에는 금요일이 아니다.")
     void isNotFriday() {
@@ -78,5 +79,29 @@ class DayTest {
         int firstDate = 1;
         allDays.forEach(date -> assertThat(new Day(date).daysFromFirstDate())
                 .isEqualTo(date - firstDate));
+    }
+
+    @Test
+    @DisplayName("12월은 3, 10, 17, 24, 31일이 일요일이다.")
+    void isSunday() {
+        sundays.forEach(saturday -> {
+            Day day = new Day(saturday);
+            assertThat(day.isSunday()).isTrue();
+        });
+    }
+
+    @Test
+    @DisplayName("12월은 3, 10, 17, 24, 31일 외에는 일요일이 아니다.")
+    void isNotSunday() {
+        allDays.stream()
+                .filter(date -> !sundays.contains(date))
+                .forEach(date -> assertThat(new Day(date).isSunday()).isFalse());
+    }
+
+    @Test
+    @DisplayName("12월 25일은 크리스마스 디데이다.")
+    void isChristmasDDay() {
+        int christmasDate = 25;
+        assertThat(new Day(christmasDate).isChristmasDDay()).isTrue();
     }
 }
