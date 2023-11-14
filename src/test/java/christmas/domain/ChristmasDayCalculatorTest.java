@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static christmas.testconsts.TestConsts.tempMenuCounts;
+import static christmas.testconsts.TestConsts.tempTotalOrderPrice;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ChristmasDayCalculatorTest {
@@ -69,7 +71,7 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("1일이면 1,000원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountFirstDate() {
-        Order order = new Order(new Day(1), null);
+        Order order = new Order(new Day(1), tempMenuCounts, tempTotalOrderPrice);
         int expectedDiscountAmount = 1_000;
         assertThat(christmasDayCalculator.discountPrice(order))
                 .isEqualTo(-1 * expectedDiscountAmount);
@@ -78,7 +80,7 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("2일이면 1,100원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountSecondDate() {
-        Order order = new Order(new Day(2), null);
+        Order order = new Order(new Day(2), tempMenuCounts, tempTotalOrderPrice);
         int expectedDiscountAmount = 1_100;
         assertThat(christmasDayCalculator.discountPrice(order))
                 .isEqualTo(-1 * expectedDiscountAmount);
@@ -87,7 +89,7 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("2일이면 1,100원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountEighthDate() {
-        Order order = new Order(new Day(8), null);
+        Order order = new Order(new Day(8), tempMenuCounts, tempTotalOrderPrice);
         int expectedDiscountAmount = 1_700;
         assertThat(christmasDayCalculator.discountPrice(order))
                 .isEqualTo(-1 * expectedDiscountAmount);
@@ -96,7 +98,7 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("25일이면 3,400원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountTwentyFifthDate() {
-        Order order = new Order(new Day(25), null);
+        Order order = new Order(new Day(25), tempMenuCounts, tempTotalOrderPrice);
         int expectedDiscountAmount = 3_400;
         assertThat(christmasDayCalculator.discountPrice(order))
                 .isEqualTo(-1 * expectedDiscountAmount);

@@ -2,7 +2,6 @@ package christmas.domain;
 
 import christmas.consts.ConstantDate;
 import christmas.consts.ConstantMoney;
-import christmas.consts.Menu;
 import christmas.vo.Day;
 import christmas.vo.Money;
 import christmas.vo.Order;
@@ -11,9 +10,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 
+import static christmas.testconsts.TestConsts.tempMenuCounts;
+import static christmas.testconsts.TestConsts.tempTotalOrderPrice;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SpecialCalculatorTest {
@@ -55,7 +55,7 @@ class SpecialCalculatorTest {
     @DisplayName("할인 가격은 날짜가 해당되기만 하면 총 1,000원이다.")
     void discountPrice() {
         Day tempVisitingDay = supportedDays.get(0);
-        Order order = new Order(tempVisitingDay, new EnumMap<>(Menu.class));
+        Order order = new Order(tempVisitingDay, tempMenuCounts, tempTotalOrderPrice);
         assertThat(specialCalculator.discountPrice(order))
                 .isEqualTo(ConstantMoney.SIGN_INVERTER.getAmount()
                         * ConstantMoney.SINGLE_UNIT_FOR_SPECIAL_EVENT.getAmount());

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
+import static christmas.testconsts.TestConsts.tempDay;
+import static christmas.testconsts.TestConsts.tempTotalOrderPrice;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WeekdayCalculatorTest {
@@ -64,7 +66,7 @@ class WeekdayCalculatorTest {
         int iceCreamCount = 3;
         menuCount.put(Menu.ICE_CREAM, iceCreamCount);
 
-        Order order = new Order(new Day(1), menuCount);
+        Order order = new Order(tempDay, menuCount,tempTotalOrderPrice);
         assertThat(weekdayCalculator.discountPrice(order))
                 .isEqualTo(ConstantMoney.SIGN_INVERTER.getAmount()
                         * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
@@ -74,7 +76,7 @@ class WeekdayCalculatorTest {
     @Test
     @DisplayName("디저트 메뉴가 없으면 할인 가격은 0원이다.")
     void discountNothing() {
-        Order order = new Order(new Day(1), menuCount);
+        Order order = new Order(tempDay, menuCount, tempTotalOrderPrice);
         assertThat(weekdayCalculator.discountPrice(order)).isEqualTo(0);
     }
 }
