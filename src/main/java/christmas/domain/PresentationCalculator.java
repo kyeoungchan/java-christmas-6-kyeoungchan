@@ -6,9 +6,11 @@ import christmas.dto.OrderForEvents;
 import christmas.vo.Day;
 import christmas.vo.Money;
 
+import java.util.List;
+
 public class PresentationCalculator implements EventCalculatorAdapter {
     @Override
-    public boolean supports(Day day, Money priceBeforeDiscount) {
+    public boolean supports(Day day, Money priceBeforeDiscount, List<Menu> menus) {
         return priceBeforeDiscount.getAmount()
                 >= ConstantMoney.STANDARD_FOR_PRESENTATION_EVENT.getAmount();
     }

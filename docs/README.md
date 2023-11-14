@@ -74,10 +74,10 @@
     - [x] 적용 날짜는 12.1, 12.2... 12.30까지로 매주 금토다.
     - [x] 적용 날짜라면, {(${일수} - 1) * 100 + 1000}만큼 할인한다.
   - [x] 평일 할인 적용 날짜인지 계산한다.
-    - [x] 적용 날짜는 일요일~목요일이다. 
+    - [ ] 적용 날짜는 일요일~목요일이고, 디저트 메뉴를 주문했을 때만 적용된다.
     - [x] 적용 날짜라면, **디저트 메뉴**를 **1개당** 2,023원 할인한다.
   - [x] 주말 할인 적용 날짜인지 계산한다.
-    - [x] 적용 날짜는 금요일, 토요일이다.
+    - [ ] 적용 날짜는 금요일, 토요일이고, 메인 메뉴를 주문했을 때만 적용된다.
     - [x] 적용 날짜라면, **메인 메뉴**를 **1개당** 2,023원 할인한다.
   - [x] 특별 할인 적용 날짜인지 계산한다.
     - [x] 적용 날짜는 12.3, 12.10... 매주 일요일과 12.25이다.
@@ -173,7 +173,7 @@
 1. 역할 : 방문 날짜에 해당되는 이벤트들을 적용시켜주는 역할 
 2. 상태
 3. 행위 
-   - public boolean supports(Day day, Money priceBeforeDiscount)
+   - public boolean supports(Day day, Money priceBeforeDiscount, List menus)
    - public Money discountPrice(OrderForEvents orderForEvents)
 4. 구현 객체 
    - ChristmasDayCalculator 

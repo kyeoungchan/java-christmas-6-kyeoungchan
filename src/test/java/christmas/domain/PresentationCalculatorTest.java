@@ -8,8 +8,7 @@ import christmas.dto.OrderForEvents;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static christmas.testconsts.TestConsts.tempDay;
-import static christmas.testconsts.TestConsts.tempMenuCounts;
+import static christmas.testconsts.TestConsts.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PresentationCalculatorTest {
@@ -24,7 +23,7 @@ class PresentationCalculatorTest {
         for (int i = 0; i < tempLoopCount; i++) {
             int totalAmount = ConstantMoney.STANDARD_FOR_PRESENTATION_EVENT.getAmount()
                     + moneyIncreaseUnit * i; // 12만원 + 100원 * i
-            assertThat(presentationCalculator.supports(tempDay, new Money(totalAmount)))
+            assertThat(presentationCalculator.supports(tempDay, new Money(totalAmount), tempMenus))
                     .isTrue();
         }
     }
@@ -39,7 +38,7 @@ class PresentationCalculatorTest {
         Day tempDay = new Day(1);
         for (int i = 0; i < loopCount; i++) {
             int totalAmount = minimumPrice + moneyIncreaseUnit * i; // 최소 주문 금액 + 100원 * i
-            assertThat(presentationCalculator.supports(tempDay, new Money(totalAmount))).isFalse();
+            assertThat(presentationCalculator.supports(tempDay, new Money(totalAmount), tempMenus)).isFalse();
         }
     }
 

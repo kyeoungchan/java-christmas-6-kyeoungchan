@@ -8,7 +8,9 @@ import christmas.dto.OrderForEvents;
 import christmas.vo.Day;
 import christmas.vo.Money;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 
 public class EventCalculatorsManager {
     private final EnumMap<Event, Money> benefitAmounts;
@@ -27,9 +29,11 @@ public class EventCalculatorsManager {
 
     private void generateBenefitAmounts(Day visitingDay, EnumMap<Menu, Integer> orderMenus,
                                         Money totalPriceBeforeDiscount) {
+        List<Menu> menus = new ArrayList<>();
+        orderMenus.forEach((key, value) -> menus.add(key));
         for (Event event : Event.values()) {
             EventCalculatorAdapter calculator = event.getEventCalculator();
-            if (!calculator.supports(visitingDay, totalPriceBeforeDiscount)) {
+            if (!calculator.supports(visitingDay, totalPriceBeforeDiscount, menus)) {
                 continue;
             }
             OrderForEvents order = new OrderForEvents(visitingDay, orderMenus, totalPriceBeforeDiscount);

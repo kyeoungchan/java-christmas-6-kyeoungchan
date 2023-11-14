@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static christmas.consts.ConstantMoney.SIGN_INVERTER;
-import static christmas.testconsts.TestConsts.tempMenuCounts;
-import static christmas.testconsts.TestConsts.tempTotalOrderPrice;
+import static christmas.testconsts.TestConsts.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ChristmasDayCalculatorTest {
@@ -35,7 +34,7 @@ class ChristmasDayCalculatorTest {
     void supportsFirstDate() {
         Day first = new Day(1);
         Money tempMoney = new Money(0);
-        assertThat(christmasDayCalculator.supports(first, tempMoney))
+        assertThat(christmasDayCalculator.supports(first, tempMoney, tempMenus))
                 .isTrue();
     }
 
@@ -44,7 +43,7 @@ class ChristmasDayCalculatorTest {
     void notSupportsFifthDate() {
         Day fifth = new Day(5);
         Money tempMoney = new Money(0);
-        assertThat(christmasDayCalculator.supports(fifth, tempMoney))
+        assertThat(christmasDayCalculator.supports(fifth, tempMoney, tempMenus))
                 .isFalse();
     }
 
@@ -53,7 +52,7 @@ class ChristmasDayCalculatorTest {
     void supports() {
         Money tempMoney = new Money(0);
         supportedDays.forEach(
-                day -> assertThat(christmasDayCalculator.supports(day, tempMoney)).isTrue()
+                day -> assertThat(christmasDayCalculator.supports(day, tempMoney, tempMenus)).isTrue()
         );
     }
 
@@ -64,7 +63,7 @@ class ChristmasDayCalculatorTest {
         for (int date = 0; date <= ConstantDate.LAST_DATE.getDate(); date++) {
             Day day = new Day(date);
             if (!supportedDays.contains(day)) {
-                assertThat(christmasDayCalculator.supports(day, tempMoney)).isFalse();
+                assertThat(christmasDayCalculator.supports(day, tempMoney, tempMenus)).isFalse();
             }
         }
     }

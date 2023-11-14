@@ -1,17 +1,20 @@
 package christmas.domain;
 
 import christmas.consts.ConstantMoney;
+import christmas.consts.Menu;
 import christmas.consts.MenuKind;
 import christmas.dto.OrderForEvents;
 import christmas.vo.Day;
 import christmas.vo.Money;
 
+import java.util.List;
 import java.util.Map;
 
 public class WeekdayCalculator implements EventCalculatorAdapter {
     @Override
-    public boolean supports(Day day, Money priceBeforeDiscount) {
-        return day.isWeekday();
+    public boolean supports(Day day, Money priceBeforeDiscount, List<Menu> menus) {
+        boolean isThereDessertMenu = menus.stream().anyMatch(MenuKind.DESSERT::isKindOf);
+        return day.isWeekday() && isThereDessertMenu;
     }
 
     @Override

@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static christmas.testconsts.TestConsts.tempMenuCounts;
-import static christmas.testconsts.TestConsts.tempTotalOrderPrice;
+import static christmas.testconsts.TestConsts.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SpecialCalculatorTest {
@@ -35,7 +34,7 @@ class SpecialCalculatorTest {
     void supports() {
         Money tempMoney = new Money(0);
         supportedDays.forEach(
-                day -> assertThat(specialCalculator.supports(day, tempMoney)).isTrue()
+                day -> assertThat(specialCalculator.supports(day, tempMoney, tempMenus)).isTrue()
         );
     }
 
@@ -46,7 +45,7 @@ class SpecialCalculatorTest {
         for (int date = 0; date <= ConstantDate.LAST_DATE.getDate(); date++) {
             Day day = new Day(date);
             if (!supportedDays.contains(day)) {
-                assertThat(specialCalculator.supports(day, tempMoney)).isFalse();
+                assertThat(specialCalculator.supports(day, tempMoney, tempMenus)).isFalse();
             }
         }
     }

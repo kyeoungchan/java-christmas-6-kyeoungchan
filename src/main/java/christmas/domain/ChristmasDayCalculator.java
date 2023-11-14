@@ -1,14 +1,16 @@
 package christmas.domain;
 
 import christmas.consts.ConstantMoney;
+import christmas.consts.Menu;
 import christmas.vo.Day;
 import christmas.vo.Money;
 import christmas.dto.OrderForEvents;
 
-public class ChristmasDayCalculator implements EventCalculatorAdapter {
+import java.util.List;
 
+public class ChristmasDayCalculator implements EventCalculatorAdapter {
     @Override
-    public boolean supports(Day day, Money priceBeforeDiscount) {
+    public boolean supports(Day day, Money priceBeforeDiscount, List<Menu> menus) {
         return day.isFriday() || day.isSaturday();
     }
 
