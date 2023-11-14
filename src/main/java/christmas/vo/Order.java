@@ -4,5 +4,5 @@ import christmas.consts.Menu;
 
 import java.util.EnumMap;
 
-public record Order(Day visitingDay, EnumMap<Menu, Integer> menuCount) {
+public record Order(Day visitingDay, EnumMap<Menu, Integer> menuCount, Money totalOrderPrice) {
 }
