@@ -194,7 +194,7 @@
 1. 역할 : 혜택 결과를 총괄하는 역할
 2. 상태 : OrderCalculator
 3. 행위 
-   - public CalculateResult generateBenefitDetails(Day visitingDay, EnumMap orderMenus)
+   - public CalculateResult generateBenefitDetails(Day visitingDay, OrderMenus orderMenus)
 
 ### MenuKind
 1. 역할 : 메뉴 유형 정보를 갖는 열거형

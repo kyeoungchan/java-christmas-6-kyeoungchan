@@ -3,8 +3,8 @@ package christmas.service;
 import christmas.consts.ConstantMoney;
 import christmas.consts.Event;
 import christmas.consts.Menu;
+import christmas.domain.OrderMenus;
 import christmas.dto.CalculateResult;
-import christmas.service.BenefitCalculator;
 import christmas.vo.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,12 +17,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class BenefitCalculatorTest {
     private final BenefitCalculator benefitCalculator = new BenefitCalculator();
-    private final EnumMap<Menu, Integer> orderMenus = new EnumMap<>(Menu.class);
+    private final EnumMap<Menu, Integer> menuCount = new EnumMap<>(Menu.class);
     private CalculateResult calculateResult;
 
     @BeforeEach
     void initializeOrderMenus() {
-        orderMenus.put(Menu.BARBCUE_RIBS, 1);
+        menuCount.put(Menu.BARBCUE_RIBS, 1);
+        OrderMenus orderMenus = new OrderMenus(menuCount);
         calculateResult = benefitCalculator.generateBenefitDetails(tempDay, orderMenus);
     }
 
@@ -57,7 +58,8 @@ class BenefitCalculatorTest {
     @Test
     @DisplayName("BenefitCalculator는 증정 상품에 대한 결과도 반환한다.")
     void generatePresentationCount() {
-        orderMenus.put(Menu.RED_WINE, 2); // 60_000 * 2
+        menuCount.put(Menu.RED_WINE, 2); // 60_000 * 2
+        OrderMenus orderMenus = new OrderMenus(menuCount);
         calculateResult = benefitCalculator.generateBenefitDetails(tempDay, orderMenus);
         EnumMap<Menu, Integer> presentationCount = calculateResult.eventsResult().presentationCount();
         assertThat(presentationCount.keySet()).containsOnly(Menu.CHAMPAGNE);
@@ -90,7 +92,8 @@ class BenefitCalculatorTest {
     @Test
     @DisplayName("처음부터 할인 혜택을 못 받을 고객이라면 빈 컬렉션과 0원의 혜택 금액을 반환한다.")
     void generateNoneEventResult() {
-        orderMenus.remove(Menu.BARBCUE_RIBS);
+        menuCount.remove(Menu.BARBCUE_RIBS);
+        OrderMenus orderMenus = new OrderMenus(menuCount);
         calculateResult = benefitCalculator.generateBenefitDetails(tempDay, orderMenus);
         assertThat(calculateResult.eventsResult().benefitAmounts()).isEmpty();
         assertThat(calculateResult.eventsResult().presentationCount()).isEmpty();

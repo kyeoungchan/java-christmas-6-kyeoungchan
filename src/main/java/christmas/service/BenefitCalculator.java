@@ -5,6 +5,7 @@ import christmas.consts.Event;
 import christmas.consts.Menu;
 import christmas.domain.EventCalculatorsManager;
 import christmas.domain.OrderCalculator;
+import christmas.domain.OrderMenus;
 import christmas.dto.CalculateResult;
 import christmas.dto.EventsResult;
 import christmas.dto.OrderBeforeEvents;
@@ -22,17 +23,18 @@ public class BenefitCalculator {
         eventCalculatorsManager = new EventCalculatorsManager();
     }
 
-    public CalculateResult generateBenefitDetails(Day visitingDay, EnumMap<Menu, Integer> orderMenus) {
-        OrderBeforeEvents orderBeforeEvents = beforeEvents(orderMenus);
+    public CalculateResult generateBenefitDetails(Day visitingDay, OrderMenus orderMenus) {
+        EnumMap<Menu, Integer> menuCount = orderMenus.getMenuCount();
+        OrderBeforeEvents orderBeforeEvents = beforeEvents(menuCount);
         Money totalPriceBeforeDiscount = orderBeforeEvents.totalOrderPrice();
         if (!canApply(orderBeforeEvents)) {
-            return generateNoEventDetail(orderMenus, totalPriceBeforeDiscount);
+            return generateNoEventDetail(menuCount, totalPriceBeforeDiscount);
         }
-        EventsResult eventsResult = getEventsResult(visitingDay, orderMenus, totalPriceBeforeDiscount);
+        EventsResult eventsResult = getEventsResult(visitingDay, menuCount, totalPriceBeforeDiscount);
         Money totalBenefitPrice = eventsResult.totalBenefitPrice();
         Money totalPriceAfterDiscount =
                 calculateTotalPriceAfterDiscount(totalPriceBeforeDiscount, totalBenefitPrice);
-        return new CalculateResult(orderMenus, totalPriceBeforeDiscount,
+        return new CalculateResult(menuCount, totalPriceBeforeDiscount,
                 eventsResult, totalPriceAfterDiscount);
     }
 
