@@ -67,9 +67,9 @@
     ```text
     [ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.
     ```
-- [ ] **방문 예정 날짜에 따른 이벤트 혜택들을 계산한다.**
-  - [ ] 이벤트 적용 대상인지 확인한다.
-    - [ ] 총주문 금액이 10,000원 이상이면 적용 대상이다.
+- [x] **방문 예정 날짜에 따른 이벤트 혜택들을 계산한다.**
+  - [x] 이벤트 적용 대상인지 확인한다.
+    - [x] 총주문 금액이 10,000원 이상이면 적용 대상이다.
   - [x] 크리스마스 디데이 할인 적용 날짜인지 계산한다. - ChristmasDayCalculator$supports
     - [x] 적용 날짜는 12.1, 12.2... 12.30까지로 매주 금토다.
     - [x] 적용 날짜라면, {(${일수} - 1) * 100 + 1000}만큼 할인한다.
@@ -172,7 +172,7 @@
 2. 상태
 3. 행위 
    - public boolean supports(Day day, Money priceBeforeDiscount)
-   - public Money discountPrice(Order order)
+   - public Money discountPrice(Order orderForEvents)
 4. 구현 객체 
    - ChristmasDayCalculator 
    - WeekdayCalculator 
@@ -218,7 +218,7 @@
 
 ### Day
 1. 역할 : 날짜의 값에 대해서 검증하고 해당 요일을 알려주는 역할
-2. 상태 : Int day
+2. 상태 : Int date
 3. 행위
    - private void validate(int date)
    - boolean isFriday()
@@ -229,7 +229,9 @@
 
 ### OrderCalculator
 1. 역할 : 주문 목록들을 받으면 할인 혜택을 받기 전의 총주문 금액을 계산한다.
-2. 상태 : List Menu
+2. 상태
 3. 행위
    - Money calculateTotalPrice()
-   - boolean isAppliedToEvents()
+   - OrderBeforeEvents calculateTotalPriceAndCanApplyToEvents(List<> menues)
+   - private int generateTotalAmount(List<> menues)
+   - private boolean canApplyToEvents(int totalAmount)
