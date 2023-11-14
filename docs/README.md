@@ -92,7 +92,7 @@
   - [x] 할인 금액의 합계 + 증정 메뉴의 가격
 - [x] 할인 후 예상 결제 금액을 계산한다.
   - [x] 할인 후 예상 결제 금액 = 할인 전 총주문 금액 - 할인 금액
-- [ ] **총혜택 금액에 따라** 12월 이벤트 배지를 부여한다.
+- [x] **총혜택 금액에 따라** 12월 이벤트 배지를 부여한다.
   - 5천 원 이상: 별 
   - 1만 원 이상: 트리
   - 2만 원 이상: 산타
@@ -214,7 +214,7 @@
 1. 역할 : 이벤트 배지를 부여하는 역할
 2. 상태
 3. 행위
-   - public Badge getBadge(Money totalBenefitAmount)
+   - public Badge getRightBadge(Money totalBenefitAmount)
 
 ### Day
 1. 역할 : 날짜의 값에 대해서 검증하고 해당 요일을 알려주는 역할
@@ -244,3 +244,8 @@
    - private void generateBenefitAmounts(visitingDay, orderMenus, totalPriceBeforeDiscount)
    - private EnumMap<Menu, Integer> generatePresentCount()
    - private Money calculateTotalBenefitAmount
+
+### Badge
+1. 역할 : 배지 정보를 갖는 열거형
+2. 상태 : STAR, TREE, SANTA
+3. 행위 : boolean deserveThisBadge(Money totalBenefitPrice)
