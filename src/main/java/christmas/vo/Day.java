@@ -24,6 +24,14 @@ public class Day {
         return date % ConstantDate.WEEK_UNIT.getDate() == ConstantDate.SATURDAY_UNIT_DATE.getDate();
     }
 
+    public boolean isSunday() {
+        return date % ConstantDate.WEEK_UNIT.getDate() == ConstantDate.SUNDAY_UNIT_DATE.getDate();
+    }
+
+    public boolean isChristmasDDay() {
+        return date == ConstantDate.CHRISTMAS_D_DAY.getDate();
+    }
+
     public boolean isWeekday() {
         return !isWeekend();
     }
