@@ -1,8 +1,10 @@
-package christmas.domain;
+package christmas.service;
 
 import christmas.consts.ConstantMoney;
 import christmas.consts.Event;
 import christmas.consts.Menu;
+import christmas.domain.EventCalculatorsManager;
+import christmas.domain.OrderCalculator;
 import christmas.dto.CalculateResult;
 import christmas.dto.EventsResult;
 import christmas.dto.OrderBeforeEvents;

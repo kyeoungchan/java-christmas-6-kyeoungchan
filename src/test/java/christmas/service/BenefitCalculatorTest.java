@@ -1,9 +1,10 @@
-package christmas.domain;
+package christmas.service;
 
 import christmas.consts.ConstantMoney;
 import christmas.consts.Event;
 import christmas.consts.Menu;
 import christmas.dto.CalculateResult;
+import christmas.service.BenefitCalculator;
 import christmas.vo.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
