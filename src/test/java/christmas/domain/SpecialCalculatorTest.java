@@ -4,7 +4,7 @@ import christmas.consts.ConstantDate;
 import christmas.consts.ConstantMoney;
 import christmas.vo.Day;
 import christmas.vo.Money;
-import christmas.vo.Order;
+import christmas.dto.OrderForEvents;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,8 +55,8 @@ class SpecialCalculatorTest {
     @DisplayName("할인 가격은 날짜가 해당되기만 하면 총 1,000원이다.")
     void discountPrice() {
         Day tempVisitingDay = supportedDays.get(0);
-        Order order = new Order(tempVisitingDay, tempMenuCounts, tempTotalOrderPrice);
-        assertThat(specialCalculator.discountPrice(order))
+        OrderForEvents orderForEvents = new OrderForEvents(tempVisitingDay, tempMenuCounts, tempTotalOrderPrice);
+        assertThat(specialCalculator.discountPrice(orderForEvents))
                 .isEqualTo(ConstantMoney.SIGN_INVERTER.getAmount()
                         * ConstantMoney.SINGLE_UNIT_FOR_SPECIAL_EVENT.getAmount());
     }

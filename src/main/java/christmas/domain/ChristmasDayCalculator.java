@@ -3,7 +3,7 @@ package christmas.domain;
 import christmas.consts.ConstantMoney;
 import christmas.vo.Day;
 import christmas.vo.Money;
-import christmas.vo.Order;
+import christmas.dto.OrderForEvents;
 
 public class ChristmasDayCalculator implements EventCalculatorAdapter {
 
@@ -13,8 +13,8 @@ public class ChristmasDayCalculator implements EventCalculatorAdapter {
     }
 
     @Override
-    public int discountPrice(Order order) {
-        Day visitingDay = order.visitingDay();
+    public int discountPrice(OrderForEvents orderForEvents) {
+        Day visitingDay = orderForEvents.visitingDay();
         return calculateDiscountAmount(visitingDay)
                 * ConstantMoney.SIGN_INVERTER.getAmount();
     }

@@ -3,9 +3,9 @@ package christmas.domain;
 import christmas.consts.ConstantDate;
 import christmas.consts.ConstantMoney;
 import christmas.consts.Menu;
+import christmas.dto.OrderForEvents;
 import christmas.vo.Day;
 import christmas.vo.Money;
-import christmas.vo.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -66,8 +66,8 @@ class WeekendCalculatorTest {
         int seafoodPastaCount = 3;
         menuCount.put(Menu.SEAFOOD_PASTA, seafoodPastaCount);
 
-        Order order = new Order(tempDay, menuCount, tempTotalOrderPrice);
-        assertThat(weekendCalculator.discountPrice(order))
+        OrderForEvents orderForEvents = new OrderForEvents(tempDay, menuCount, tempTotalOrderPrice);
+        assertThat(weekendCalculator.discountPrice(orderForEvents))
                 .isEqualTo(ConstantMoney.SIGN_INVERTER.getAmount()
                         * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
                         * (tBoneSteakCount + seafoodPastaCount));
@@ -76,7 +76,7 @@ class WeekendCalculatorTest {
     @Test
     @DisplayName("메인 메뉴가 없으면 할인 가격은 0원이다.")
     void discountNothing() {
-        Order order = new Order(tempDay, menuCount, tempTotalOrderPrice);
-        assertThat(weekendCalculator.discountPrice(order)).isEqualTo(0);
+        OrderForEvents orderForEvents = new OrderForEvents(tempDay, menuCount, tempTotalOrderPrice);
+        assertThat(weekendCalculator.discountPrice(orderForEvents)).isEqualTo(0);
     }
 }

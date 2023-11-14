@@ -2,9 +2,9 @@ package christmas.domain;
 
 import christmas.consts.ConstantMoney;
 import christmas.consts.MenuKind;
+import christmas.dto.OrderForEvents;
 import christmas.vo.Day;
 import christmas.vo.Money;
-import christmas.vo.Order;
 
 import java.util.Map;
 
@@ -15,14 +15,14 @@ public class WeekdayCalculator implements EventCalculatorAdapter {
     }
 
     @Override
-    public int discountPrice(Order order) {
-        int dessertMenuCount = countDessertMenu(order);
+    public int discountPrice(OrderForEvents orderForEvents) {
+        int dessertMenuCount = countDessertMenu(orderForEvents);
         return dessertMenuCount * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
                 * ConstantMoney.SIGN_INVERTER.getAmount();
     }
 
-    private int countDessertMenu(Order order) {
-        return order.menuCount().entrySet()
+    private int countDessertMenu(OrderForEvents orderForEvents) {
+        return orderForEvents.menuCount().entrySet()
                 .stream()
                 .filter(entry -> MenuKind.DESSERT.isKindOf(entry.getKey()))
                 .mapToInt(Map.Entry::getValue)

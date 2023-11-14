@@ -2,9 +2,9 @@ package christmas.domain;
 
 import christmas.vo.Day;
 import christmas.vo.Money;
-import christmas.vo.Order;
+import christmas.dto.OrderForEvents;
 
 public interface EventCalculatorAdapter {
     boolean supports(Day day, Money priceBeforeDiscount);
-    int discountPrice(Order order);
+    int discountPrice(OrderForEvents orderForEvents);
 }

@@ -2,10 +2,9 @@ package christmas.domain;
 
 import christmas.consts.ConstantMoney;
 import christmas.consts.Menu;
-import christmas.testconsts.TestConsts;
 import christmas.vo.Day;
 import christmas.vo.Money;
-import christmas.vo.Order;
+import christmas.dto.OrderForEvents;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -52,8 +51,8 @@ class PresentationCalculatorTest {
         for (int i = 0; i < loopCount; i++) {
             Money totalOrderPrice = new Money( // 12만원 + (100원 * i)
                     ConstantMoney.STANDARD_FOR_PRESENTATION_EVENT.getAmount() + moneyIncreaseUnit * i);
-            Order order = new Order(tempDay, tempMenuCounts, totalOrderPrice);
-            assertThat(presentationCalculator.discountPrice(order)).isEqualTo(
+            OrderForEvents orderForEvents = new OrderForEvents(tempDay, tempMenuCounts, totalOrderPrice);
+            assertThat(presentationCalculator.discountPrice(orderForEvents)).isEqualTo(
                     ConstantMoney.SIGN_INVERTER.getAmount() * Menu.CHAMPAGNE.getAmount());
         }
     }
@@ -65,11 +64,10 @@ class PresentationCalculatorTest {
         for (int multipleUnit = 1; multipleUnit <= loopCount; multipleUnit++) {
             Money totalOrderPrice = new Money( // 12만원 * i
                     ConstantMoney.STANDARD_FOR_PRESENTATION_EVENT.getAmount() * multipleUnit);
-            Order order = new Order(tempDay, tempMenuCounts, totalOrderPrice);
-            assertThat(presentationCalculator.discountPrice(order)).isEqualTo(
-                    ConstantMoney.SIGN_INVERTER.getAmount() * Menu.CHAMPAGNE.getAmount()
-                            * multipleUnit
-            );
+            OrderForEvents orderForEvents = new OrderForEvents(tempDay, tempMenuCounts, totalOrderPrice);
+            assertThat(presentationCalculator.discountPrice(orderForEvents)).isEqualTo(
+                    ConstantMoney.SIGN_INVERTER.getAmount()
+                            * Menu.CHAMPAGNE.getAmount() * multipleUnit);
         }
     }
 }
