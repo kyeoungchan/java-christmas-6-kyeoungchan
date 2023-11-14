@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.consts.ConstantMoney;
 import christmas.vo.Day;
 import christmas.vo.Money;
 import christmas.vo.Order;
@@ -12,6 +13,7 @@ public class SpecialCalculator implements EventCalculatorAdapter {
 
     @Override
     public int discountPrice(Order order) {
-        return 0;
+        return ConstantMoney.SINGLE_UNIT_FOR_SPECIAL_EVENT.getAmount()
+                * ConstantMoney.SIGN_INVERTER.getAmount();
     }
 }
