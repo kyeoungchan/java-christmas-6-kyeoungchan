@@ -102,4 +102,16 @@ class EventCalculatorsManagerTest {
         assertThat(presentationCount.keySet()).containsOnly(Menu.CHAMPAGNE);
         assertThat(presentationCount.values()).containsOnly(1);
     }
+
+    @Test
+    @DisplayName("샴페인을 증정받지 못하면 빈 EnumMap을 반환한다.")
+    void generateNonePresentCount() {
+        Day visitingDay = new Day(1);
+        EventsResult eventsResult =
+                eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
+        EnumMap<Menu, Integer> presentationCount = eventsResult.presentationCount();
+        assertThat(presentationCount.keySet()).doesNotContain(Menu.CHAMPAGNE);
+        assertThat(presentationCount.keySet()).isEmpty();
+        assertThat(presentationCount.values()).isEmpty();
+    }
 }

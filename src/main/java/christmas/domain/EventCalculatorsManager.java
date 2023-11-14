@@ -44,8 +44,10 @@ public class EventCalculatorsManager {
 
     private EnumMap<Menu, Integer> generatePresentCount() {
         EnumMap<Menu, Integer> presentationCount = new EnumMap<>(Menu.class);
-        Money discountAmountByPresent = benefitAmounts
-                .getOrDefault(Event.PRESENTATION_EVENT, new Money(ConstantMoney.NOT_PAID.getAmount()));
+        Money discountAmountByPresent = benefitAmounts.get(Event.PRESENTATION_EVENT);
+        if (discountAmountByPresent == null) {
+            return presentationCount;
+        }
         int positiveAmount = discountAmountByPresent.getAmount() * ConstantMoney.SIGN_INVERTER.getAmount();
         presentationCount.put(Menu.CHAMPAGNE, positiveAmount / Menu.CHAMPAGNE.getAmount());
         return presentationCount;
