@@ -8,7 +8,9 @@ public enum ConstantMoney {
     INCREASE_UNIT_FOR_WEEKEND_EVENT(2_023),
     SINGLE_UNIT_FOR_SPECIAL_EVENT(1_000),
     STANDARD_FOR_PRESENTATION_EVENT(120_000),
-    SIGN_INVERTER(-1);
+    SIGN_INVERTER(-1),
+    NOT_PAID(0);
+
 
     private final int amount;
 

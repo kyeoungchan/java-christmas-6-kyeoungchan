@@ -86,6 +86,8 @@
     - [x] 할인 전 총주문금액이 12만 원 이상이면 대상이다. 
     - [x] 적용 대상이라면 샴페인 1개를 증정한다.
     - [x] 우테코 식당의 목표 1번에 의거하여, 24만 원 등 총주문 금액이 많으면 그에 해당하는 샴페인을 추가로 증정한다.
+- [x] 이벤트 별로 계산한 혜택들을 총합한다. - EventCalculatorsManager
+  - [x] 각 이벤트별로 혜택받은 금액이 얼마씩인지 관리한다.
 - [ ] 총혜택 금액을 계산한다.
   - [ ] 할인 금액의 합계 + 증정 메뉴의 가격
 - [ ] 할인 후 예상 결제 금액을 계산한다.
@@ -172,7 +174,7 @@
 2. 상태
 3. 행위 
    - public boolean supports(Day day, Money priceBeforeDiscount)
-   - public Money discountPrice(Order orderForEvents)
+   - public Money discountPrice(OrderForEvents orderForEvents)
 4. 구현 객체 
    - ChristmasDayCalculator 
    - WeekdayCalculator 
@@ -183,18 +185,16 @@
 ### Event
 1. 역할 : 이벤트 종류별로 날짜 정보를 갖는 열거형
 2. 상태 : CHRISTMAS_D_DAY_EVENT, WEEKDAY_EVENT, WEEKEND_EVENT, SPECIAL_EVENT, PRESENTATION_EVENT 
-   - 각 상태가 갖는 멤버변수 : Day, List menues
+   - 각 상태가 갖는 멤버변수 : String name
 3. 행위
-   - boolean isApplied(Day day)
+   - String getName()
+   - EventCalculatorAdapter getEventCalculator()
 
 ### BenefitCalculator
-1. 역할 : 혜택 금액을 계산하는 역할
-2. 상태 : int priceBeforeDiscount, EnumMap<Event, Integer> benefitPriceForEachEvent
+1. 역할 : 혜택 결과를 총괄하는 역할
+2. 상태 : OrderCalculator
 3. 행위 
-  - public void calculateBenefits(Day day, List menues)
-  - public BenefitDetails generateBenefitDetails()
-   - private Money totalBenefitPrice()
-   - private Money expectedPaymentAmount()
+   - public CalculateResult generateBenefitDetails(Day visitingDay, EnumMap orderMenus)
 
 ### MenuKind
 1. 역할 : 메뉴 유형 정보를 갖는 열거형
@@ -235,3 +235,12 @@
    - OrderBeforeEvents calculateTotalPriceAndCanApplyToEvents(List<> menues)
    - private int generateTotalAmount(List<> menues)
    - private boolean canApplyToEvents(int totalAmount)
+
+### EventCalculatorsManager
+1. 역할 : 이벤트 계산기별로만 계산 결과를 통합해준다.
+2. 상태 : EnumMap<Event, Money> benefitAmounts
+3. 행위
+   - EventsResult generateEventsResult(visitingDay, orderMenus, totalPriceBeforeDiscount)
+   - private void generateBenefitAmounts(visitingDay, orderMenus, totalPriceBeforeDiscount)
+   - private EnumMap<Menu, Integer> generatePresentCount()
+   - private Money calculateTotalBenefitAmount
