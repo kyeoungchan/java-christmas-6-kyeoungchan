@@ -14,7 +14,7 @@ public class OrderCalculator {
         return new Money(totalAmount);
     }
 
-    public OrderBeforeEvents calculateTotalPriceAndCanApplyToEvents(EnumMap<Menu, Integer> menuCounts) {
+    public OrderBeforeEvents calculateTotalPriceIfCanApplyToEvents(EnumMap<Menu, Integer> menuCounts) {
         int totalAmount = generateTotalAmount(menuCounts);
         Money totalOrderPrice = new Money(totalAmount);
         boolean canApplyToEvents = canApplyToEvents(totalAmount);
