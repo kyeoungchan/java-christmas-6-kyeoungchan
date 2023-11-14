@@ -33,10 +33,10 @@ class EventCalculatorsManagerTest {
         Day visitingDay = new Day(1);
         EventsResult eventsResult = eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
-        benefitAmounts.entrySet().forEach(e -> {
-            assertThat(e.getKey()).isIn(Event.CHRISTMAS_D_DAY_EVENT, Event.WEEKEND_EVENT);
-            assertThat(e.getValue()).isIn(new Money(-1_000), new Money(-2_023));
-        });
+        assertThat(benefitAmounts.keySet().stream().toList())
+                .containsExactly(Event.CHRISTMAS_D_DAY_EVENT, Event.WEEKEND_EVENT);
+        assertThat(benefitAmounts.values().stream().toList())
+                .containsExactly(new Money(-1_000), new Money(-2_023));
     }
 
     @Test
@@ -59,12 +59,25 @@ class EventCalculatorsManagerTest {
     @DisplayName("25일에는 평일 할인과 특별 할인을 적용받는다.")
     void generateEventResultChristmas() {
         Day visitingDay = new Day(25);
+        orderMenus.put(Menu.ICE_CREAM, 1);
         EventsResult eventsResult = eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
-        benefitAmounts.entrySet().forEach(e -> {
-            assertThat(e.getKey()).isIn(Event.WEEKDAY_EVENT, Event.SPECIAL_EVENT);
-            assertThat(e.getValue()).isIn(new Money(0), new Money(-1_000));
-        });
+        assertThat(benefitAmounts.keySet().stream().toList())
+                .containsExactly(Event.WEEKDAY_EVENT, Event.SPECIAL_EVENT);
+        assertThat(benefitAmounts.values().stream().toList())
+                .containsExactly(new Money(-2_023), new Money(-1_000));
+    }
+
+    @Test
+    @DisplayName("25일이어도 디저트 메뉴가 없으면 평일 할인은 해당되지 않는다.")
+    void generateEventResultChristmasNoDessert() {
+        Day visitingDay = new Day(25);
+        EventsResult eventsResult = eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
+        EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
+        assertThat(benefitAmounts.keySet().stream().toList())
+                .containsExactly(Event.SPECIAL_EVENT);
+        assertThat(benefitAmounts.values().stream().toList())
+                .containsExactly(new Money(-1_000));
     }
 
     @Test

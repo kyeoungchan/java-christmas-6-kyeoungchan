@@ -21,16 +21,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WeekdayCalculatorTest {
     private final WeekdayCalculator weekdayCalculator = new WeekdayCalculator();
     private final List<Day> supportedDays = new ArrayList<>();
+    private final List<Menu> menus = new ArrayList<>();
     private final EnumMap<Menu, Integer> menuCount = new EnumMap<>(Menu.class);
 
     @BeforeEach
-    void initializeSupportedDaysAndMenuesWithoutDessert() {
+    void initializeData() {
+        initializeSupportedDays();
+        initializeMenusNoDessert();
+        initializeMenuCountNoDessert();
+    }
+
+    private void initializeSupportedDays() {
         for (int date = 0; date <= ConstantDate.LAST_DATE.getDate(); date++) {
             Day day = new Day(date);
             if (day.isWeekday()) {
                 supportedDays.add(day);
             }
         }
+    }
+
+    private void initializeMenusNoDessert() {
+        menus.add(Menu.T_BONE_STEAK);
+        menus.add(Menu.BUTTON_MUSHROOM_SOUP);
+        menus.add(Menu.TAPAS);
+        menus.add(Menu.COKE_ZERO);
+    }
+
+    private void initializeMenuCountNoDessert() {
         menuCount.put(Menu.T_BONE_STEAK, 2);
         menuCount.put(Menu.BUTTON_MUSHROOM_SOUP, 3);
         menuCount.put(Menu.TAPAS, 4);
@@ -39,10 +56,20 @@ class WeekdayCalculatorTest {
 
     @Test
     @DisplayName("WeekdayCalculator는 일요일에서 목요일은 기능을 지원할 수 있다.")
-    void supports() {
+    void supportedDay() {
+        Money tempMoney = new Money(0);
+        menus.add(Menu.ICE_CREAM);
+        supportedDays.forEach(
+                day -> assertThat(weekdayCalculator.supports(day, tempMoney, menus)).isTrue()
+        );
+    }
+
+    @Test
+    @DisplayName("평일이어도 디저트를 주문하지 않으면 지원하지 않는다.")
+    void supportedDayNotDessert() {
         Money tempMoney = new Money(0);
         supportedDays.forEach(
-                day -> assertThat(weekdayCalculator.supports(day, tempMoney)).isTrue()
+                day -> assertThat(weekdayCalculator.supports(day, tempMoney, menus)).isFalse()
         );
     }
 
@@ -53,7 +80,7 @@ class WeekdayCalculatorTest {
         for (int date = 0; date <= ConstantDate.LAST_DATE.getDate(); date++) {
             Day day = new Day(date);
             if (!supportedDays.contains(day)) {
-                assertThat(weekdayCalculator.supports(day, tempMoney)).isFalse();
+                assertThat(weekdayCalculator.supports(day, tempMoney, menus)).isFalse();
             }
         }
     }
