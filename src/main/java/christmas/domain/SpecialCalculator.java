@@ -12,8 +12,8 @@ public class SpecialCalculator implements EventCalculatorAdapter {
     }
 
     @Override
-    public int discountPrice(OrderForEvents orderForEvents) {
-        return ConstantMoney.SINGLE_UNIT_FOR_SPECIAL_EVENT.getAmount()
-                * ConstantMoney.SIGN_INVERTER.getAmount();
+    public Money discountPrice(OrderForEvents orderForEvents) {
+        return new Money(ConstantMoney.SINGLE_UNIT_FOR_SPECIAL_EVENT.getAmount()
+                * ConstantMoney.SIGN_INVERTER.getAmount());
     }
 }

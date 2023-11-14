@@ -59,7 +59,7 @@ class WeekendCalculatorTest {
     }
 
     @Test
-    @DisplayName("메인 메뉴 개수만큼 할인 가격이 결정된다.")
+    @DisplayName("메인 메뉴 개수만큼 2,023원씩 할인 가격이 결정된다.")
     void discountPrice() {
         int tBoneSteakCount = 5;
         menuCount.put(Menu.T_BONE_STEAK, tBoneSteakCount);
@@ -67,16 +67,16 @@ class WeekendCalculatorTest {
         menuCount.put(Menu.SEAFOOD_PASTA, seafoodPastaCount);
 
         OrderForEvents orderForEvents = new OrderForEvents(tempDay, menuCount, tempTotalOrderPrice);
-        assertThat(weekendCalculator.discountPrice(orderForEvents))
-                .isEqualTo(ConstantMoney.SIGN_INVERTER.getAmount()
-                        * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
-                        * (tBoneSteakCount + seafoodPastaCount));
+        Money expectedPrice = new Money(ConstantMoney.SIGN_INVERTER.getAmount()
+                * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
+                * (tBoneSteakCount + seafoodPastaCount));
+        assertThat(weekendCalculator.discountPrice(orderForEvents)).isEqualTo(expectedPrice);
     }
 
     @Test
     @DisplayName("메인 메뉴가 없으면 할인 가격은 0원이다.")
     void discountNothing() {
         OrderForEvents orderForEvents = new OrderForEvents(tempDay, menuCount, tempTotalOrderPrice);
-        assertThat(weekendCalculator.discountPrice(orderForEvents)).isEqualTo(0);
+        assertThat(weekendCalculator.discountPrice(orderForEvents)).isEqualTo(new Money(0));
     }
 }

@@ -52,8 +52,9 @@ class PresentationCalculatorTest {
             Money totalOrderPrice = new Money( // 12만원 + (100원 * i)
                     ConstantMoney.STANDARD_FOR_PRESENTATION_EVENT.getAmount() + moneyIncreaseUnit * i);
             OrderForEvents orderForEvents = new OrderForEvents(tempDay, tempMenuCounts, totalOrderPrice);
-            assertThat(presentationCalculator.discountPrice(orderForEvents)).isEqualTo(
-                    ConstantMoney.SIGN_INVERTER.getAmount() * Menu.CHAMPAGNE.getAmount());
+            Money expectedPrice =
+                    new Money(ConstantMoney.SIGN_INVERTER.getAmount() * Menu.CHAMPAGNE.getAmount());
+            assertThat(presentationCalculator.discountPrice(orderForEvents)).isEqualTo(expectedPrice);
         }
     }
 
@@ -65,9 +66,9 @@ class PresentationCalculatorTest {
             Money totalOrderPrice = new Money( // 12만원 * i
                     ConstantMoney.STANDARD_FOR_PRESENTATION_EVENT.getAmount() * multipleUnit);
             OrderForEvents orderForEvents = new OrderForEvents(tempDay, tempMenuCounts, totalOrderPrice);
-            assertThat(presentationCalculator.discountPrice(orderForEvents)).isEqualTo(
-                    ConstantMoney.SIGN_INVERTER.getAmount()
-                            * Menu.CHAMPAGNE.getAmount() * multipleUnit);
+            Money expectedPrice =
+                    new Money(ConstantMoney.SIGN_INVERTER.getAmount() * Menu.CHAMPAGNE.getAmount() * multipleUnit);
+            assertThat(presentationCalculator.discountPrice(orderForEvents)).isEqualTo(expectedPrice);
         }
     }
 }

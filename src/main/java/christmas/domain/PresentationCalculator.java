@@ -14,10 +14,10 @@ public class PresentationCalculator implements EventCalculatorAdapter {
     }
 
     @Override
-    public int discountPrice(OrderForEvents orderForEvents) {
+    public Money discountPrice(OrderForEvents orderForEvents) {
         int presentationCount = countPresentation(orderForEvents);
-        return presentationCount * Menu.CHAMPAGNE.getAmount()
-                * ConstantMoney.SIGN_INVERTER.getAmount();
+        return new Money(presentationCount * Menu.CHAMPAGNE.getAmount()
+                * ConstantMoney.SIGN_INVERTER.getAmount());
     }
 
     private int countPresentation(OrderForEvents orderForEvents) {

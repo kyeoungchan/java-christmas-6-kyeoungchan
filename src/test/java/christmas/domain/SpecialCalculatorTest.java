@@ -56,8 +56,8 @@ class SpecialCalculatorTest {
     void discountPrice() {
         Day tempVisitingDay = supportedDays.get(0);
         OrderForEvents orderForEvents = new OrderForEvents(tempVisitingDay, tempMenuCounts, tempTotalOrderPrice);
-        assertThat(specialCalculator.discountPrice(orderForEvents))
-                .isEqualTo(ConstantMoney.SIGN_INVERTER.getAmount()
-                        * ConstantMoney.SINGLE_UNIT_FOR_SPECIAL_EVENT.getAmount());
+        Money expectedPrice = new Money(ConstantMoney.SIGN_INVERTER.getAmount()
+                * ConstantMoney.SINGLE_UNIT_FOR_SPECIAL_EVENT.getAmount());
+        assertThat(specialCalculator.discountPrice(orderForEvents)).isEqualTo(expectedPrice);
     }
 }

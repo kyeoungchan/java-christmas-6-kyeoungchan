@@ -66,17 +66,17 @@ class WeekdayCalculatorTest {
         int iceCreamCount = 3;
         menuCount.put(Menu.ICE_CREAM, iceCreamCount);
 
-        OrderForEvents orderForEvents = new OrderForEvents(tempDay, menuCount,tempTotalOrderPrice);
-        assertThat(weekdayCalculator.discountPrice(orderForEvents))
-                .isEqualTo(ConstantMoney.SIGN_INVERTER.getAmount()
-                        * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
-                        * (chocolateCakeCount + iceCreamCount));
+        OrderForEvents orderForEvents = new OrderForEvents(tempDay, menuCount, tempTotalOrderPrice);
+        Money expectedPrice = new Money(ConstantMoney.SIGN_INVERTER.getAmount()
+                * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
+                * (chocolateCakeCount + iceCreamCount));
+        assertThat(weekdayCalculator.discountPrice(orderForEvents)).isEqualTo(expectedPrice);
     }
 
     @Test
     @DisplayName("디저트 메뉴가 없으면 할인 가격은 0원이다.")
     void discountNothing() {
         OrderForEvents orderForEvents = new OrderForEvents(tempDay, menuCount, tempTotalOrderPrice);
-        assertThat(weekdayCalculator.discountPrice(orderForEvents)).isEqualTo(0);
+        assertThat(weekdayCalculator.discountPrice(orderForEvents)).isEqualTo(new Money(0));
     }
 }

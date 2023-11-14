@@ -15,10 +15,11 @@ public class WeekendCalculator implements EventCalculatorAdapter {
     }
 
     @Override
-    public int discountPrice(OrderForEvents orderForEvents) {
+    public Money discountPrice(OrderForEvents orderForEvents) {
         int mainMenuCount = countMainMenu(orderForEvents);
-        return mainMenuCount * ConstantMoney.INCREASE_UNIT_FOR_WEEKEND_EVENT.getAmount()
-                * ConstantMoney.SIGN_INVERTER.getAmount();
+        return new Money(mainMenuCount
+                * ConstantMoney.INCREASE_UNIT_FOR_WEEKEND_EVENT.getAmount()
+                * ConstantMoney.SIGN_INVERTER.getAmount());
     }
 
     private int countMainMenu(OrderForEvents orderForEvents) {
