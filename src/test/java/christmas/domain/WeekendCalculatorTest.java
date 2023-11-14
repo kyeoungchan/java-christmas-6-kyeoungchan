@@ -66,7 +66,8 @@ class WeekendCalculatorTest {
 
         Order order = new Order(new Day(1), menuCount);
         assertThat(weekendCalculator.discountPrice(order))
-                .isEqualTo(-1 * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
+                .isEqualTo(ConstantMoney.SIGN_INVERTER.getAmount()
+                        * ConstantMoney.INCREASE_UNIT_FOR_WEEKDAY_EVENT.getAmount()
                         * (tBoneSteakCount + seafoodPastaCount));
     }
 
