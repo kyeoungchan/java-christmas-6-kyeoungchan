@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WeekdayCalculatorTest {
     private final WeekdayCalculator weekdayCalculator = new WeekdayCalculator();
     private final List<Day> supportedDays = new ArrayList<>();
-    private final EnumMap<Menu, Integer> menuCount = new EnumMap<Menu, Integer>(Menu.class);
+    private final EnumMap<Menu, Integer> menuCount = new EnumMap<>(Menu.class);
 
     @BeforeEach
     void initializeSupportedDaysAndMenuesWithoutDessert() {
