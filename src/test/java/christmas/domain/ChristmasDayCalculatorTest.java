@@ -1,9 +1,9 @@
 package christmas.domain;
 
 import christmas.consts.ConstantDate;
+import christmas.dto.OrderForEvents;
 import christmas.vo.Day;
 import christmas.vo.Money;
-import christmas.vo.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -71,36 +71,36 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("1일이면 1,000원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountFirstDate() {
-        Order order = new Order(new Day(1), tempMenuCounts, tempTotalOrderPrice);
+        OrderForEvents orderForEvents = new OrderForEvents(new Day(1), tempMenuCounts, tempTotalOrderPrice);
         int expectedDiscountAmount = 1_000;
-        assertThat(christmasDayCalculator.discountPrice(order))
+        assertThat(christmasDayCalculator.discountPrice(orderForEvents))
                 .isEqualTo(-1 * expectedDiscountAmount);
     }
 
     @Test
     @DisplayName("2일이면 1,100원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountSecondDate() {
-        Order order = new Order(new Day(2), tempMenuCounts, tempTotalOrderPrice);
+        OrderForEvents orderForEvents = new OrderForEvents(new Day(2), tempMenuCounts, tempTotalOrderPrice);
         int expectedDiscountAmount = 1_100;
-        assertThat(christmasDayCalculator.discountPrice(order))
+        assertThat(christmasDayCalculator.discountPrice(orderForEvents))
                 .isEqualTo(-1 * expectedDiscountAmount);
     }
 
     @Test
-    @DisplayName("2일이면 1,100원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
+    @DisplayName("8일이면 1,700원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountEighthDate() {
-        Order order = new Order(new Day(8), tempMenuCounts, tempTotalOrderPrice);
+        OrderForEvents orderForEvents = new OrderForEvents(new Day(8), tempMenuCounts, tempTotalOrderPrice);
         int expectedDiscountAmount = 1_700;
-        assertThat(christmasDayCalculator.discountPrice(order))
+        assertThat(christmasDayCalculator.discountPrice(orderForEvents))
                 .isEqualTo(-1 * expectedDiscountAmount);
     }
 
     @Test
     @DisplayName("25일이면 3,400원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountTwentyFifthDate() {
-        Order order = new Order(new Day(25), tempMenuCounts, tempTotalOrderPrice);
+        OrderForEvents orderForEvents = new OrderForEvents(new Day(25), tempMenuCounts, tempTotalOrderPrice);
         int expectedDiscountAmount = 3_400;
-        assertThat(christmasDayCalculator.discountPrice(order))
+        assertThat(christmasDayCalculator.discountPrice(orderForEvents))
                 .isEqualTo(-1 * expectedDiscountAmount);
     }
 }
