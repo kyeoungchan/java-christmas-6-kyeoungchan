@@ -25,12 +25,12 @@ class InputValidatorTest {
     @DisplayName("null이나 공백을 입력하면 검증 실패")
     void emptyInput() {
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(null))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isExactlyInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(null)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(""))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isExactlyInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt("")).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
@@ -41,7 +41,7 @@ class InputValidatorTest {
     void notNumberInputted() {
         String notNumber = "가나다";
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(notNumber))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isExactlyInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(notNumber)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
@@ -53,12 +53,12 @@ class InputValidatorTest {
         String tooBigNumber = "100001";
         String tooSmallNumber = "-100001";
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooBigNumber))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isExactlyInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooBigNumber)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooSmallNumber))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isExactlyInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooSmallNumber)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
