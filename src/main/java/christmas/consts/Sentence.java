@@ -8,6 +8,7 @@ public enum Sentence {
     ORDER_MENU_PREVIEW("<주문 메뉴>"),
     TOTAL_PRICE_BEFORE_DISCOUNT_PREVIEW("<할인 전 총주문 금액>"),
     PRESENTATION_PREVIEW("<증정 메뉴>"),
+    BENEFIT_DETAILS_PREVIEW("<혜택 내역>"),
     NOTHING("없음");
 
     private final String message;

@@ -2,7 +2,8 @@ package christmas.consts;
 
 public enum FormatForOutputView {
     MENU_COUNT("%s %,d개"),
-    AMOUNT("%,d원");
+    AMOUNT("%,d원"),
+    EVENT_BENEFIT_AMOUNT("%s: %,d원");
 
     private final String format;
 

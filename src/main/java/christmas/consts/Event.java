@@ -41,4 +41,8 @@ public enum Event {
     }
 
     public abstract EventCalculatorAdapter getEventCalculator();
+
+    public String getName() {
+        return name;
+    }
 }
