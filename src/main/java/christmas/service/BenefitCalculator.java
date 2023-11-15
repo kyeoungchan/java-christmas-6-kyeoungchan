@@ -70,6 +70,6 @@ public class BenefitCalculator {
                 .stream()
                 .mapToInt(e -> e.getKey().getAmount() * e.getValue())
                 .sum();
-        return new Money(totalPriceBeforeDiscount.amount() + totalBenefitPrice.amount() - totalPresentAmounts);
+        return new Money(totalPriceBeforeDiscount.amount() + totalBenefitPrice.amount() + totalPresentAmounts);
     }
 }

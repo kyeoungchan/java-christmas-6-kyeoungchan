@@ -56,7 +56,7 @@ class EventCalculatorsManagerTest {
     }
 
     @Test
-    @DisplayName("25일에는 평일 할인과 특별 할인을 적용받는다.")
+    @DisplayName("25일에는 크리스마스 d-day할인과 평일 할인과 특별 할인을 적용받는다.")
     void generateEventResultChristmas() {
         Day visitingDay = new Day(25);
         orderMenus.put(Menu.ICE_CREAM, 1);
@@ -64,9 +64,9 @@ class EventCalculatorsManagerTest {
                 .generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
         assertThat(benefitAmounts.keySet().stream().toList())
-                .containsExactly(Event.WEEKDAY_EVENT, Event.SPECIAL_EVENT);
+                .containsExactly(Event.CHRISTMAS_D_DAY_EVENT, Event.WEEKDAY_EVENT, Event.SPECIAL_EVENT);
         assertThat(benefitAmounts.values().stream().toList())
-                .containsExactly(new Money(-2_023), new Money(-1_000));
+                .containsExactly(new Money(-3_400), new Money(-2_023), new Money(-1_000));
     }
 
     @Test
@@ -77,9 +77,9 @@ class EventCalculatorsManagerTest {
                 .generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
         assertThat(benefitAmounts.keySet().stream().toList())
-                .containsExactly(Event.SPECIAL_EVENT);
+                .containsExactly(Event.CHRISTMAS_D_DAY_EVENT, Event.SPECIAL_EVENT);
         assertThat(benefitAmounts.values().stream().toList())
-                .containsExactly(new Money(-1_000));
+                .containsExactly(new Money(-3_400), new Money(-1_000));
     }
 
     @Test

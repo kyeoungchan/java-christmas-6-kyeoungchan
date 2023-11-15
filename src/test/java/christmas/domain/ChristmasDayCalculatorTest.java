@@ -22,10 +22,7 @@ class ChristmasDayCalculatorTest {
     @BeforeEach
     void initializeSupportedDays() {
         for (int date = ConstantDate.FIRST.getDate(); date <= ConstantDate.LAST.getDate(); date++) {
-            Day day = new Day(date);
-            if (day.isFriday() || day.isSaturday()) {
-                supportedDays.add(day);
-            }
+            supportedDays.add(new Day(date));
         }
     }
 
@@ -39,33 +36,12 @@ class ChristmasDayCalculatorTest {
     }
 
     @Test
-    @DisplayName("금요일 혹은 토요일이 아닌 날짜를 입력하면 적용하지 않음을 나타낸다.")
-    void notSupportsFifthDate() {
-        Day fifth = new Day(5);
-        Money tempMoney = new Money(0);
-        assertThat(christmasDayCalculator.supports(fifth, tempMoney, tempMenus))
-                .isFalse();
-    }
-
-    @Test
-    @DisplayName("ChristmasDayCalculator는 계산을 하기 전 방문 예상 날짜가 금요일 혹은 토요일인지 먼저 계산한다.")
+    @DisplayName("ChristmasDayCalculator는 12월 모두 적용된다.")
     void supports() {
         Money tempMoney = new Money(0);
         supportedDays.forEach(
                 day -> assertThat(christmasDayCalculator.supports(day, tempMoney, tempMenus)).isTrue()
         );
-    }
-
-    @Test
-    @DisplayName("ChristmasDayCalculator는 계산을 하기 전 방문 예상 날짜가 금요일 혹은 토요일이 아니면 아니라고 말한다.")
-    void notSupports() {
-        Money tempMoney = new Money(0);
-        for (int date = ConstantDate.FIRST.getDate(); date <= ConstantDate.LAST.getDate(); date++) {
-            Day day = new Day(date);
-            if (!supportedDays.contains(day)) {
-                assertThat(christmasDayCalculator.supports(day, tempMoney, tempMenus)).isFalse();
-            }
-        }
     }
 
     @Test

@@ -90,6 +90,19 @@ class BenefitCalculatorTest {
     }
 
     @Test
+    @DisplayName("총 주문 금액은 증정받은 샴페인 가격은 상관하지 말고 할인 가격에만 적용돼서 계산된다.")
+    void generateTotalPriceAfterDiscountIndependentToPresent() {
+        menuCount.put(Menu.T_BONE_STEAK, 2); // 110_000 + 54_000
+        OrderMenus orderMenus = new OrderMenus(menuCount);
+        int menuAmounts = Menu.T_BONE_STEAK.getAmount() * 2 + Menu.BARBCUE_RIBS.getAmount();
+        int totalDiscount = ConstantMoney.INITIAL_DISCOUNT_AMOUNT_FOR_CHRISTMAS_DAY_EVENT.getAmount()
+                + ConstantMoney.INCREASE_UNIT_FOR_WEEKEND_EVENT.getAmount() * 3;
+        calculateResult = benefitCalculator.generateBenefitDetails(tempDay, orderMenus);
+        assertThat(calculateResult.totalPriceAfterDiscount())
+                .isEqualTo(new Money(menuAmounts - totalDiscount));
+    }
+
+    @Test
     @DisplayName("처음부터 할인 혜택을 못 받을 고객이라면 빈 컬렉션과 0원의 혜택 금액을 반환한다.")
     void generateNoneEventResult() {
         menuCount.remove(Menu.BARBCUE_RIBS);
