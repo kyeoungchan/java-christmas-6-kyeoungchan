@@ -2,12 +2,14 @@ package christmas.controller;
 
 import christmas.consts.Menu;
 import christmas.domain.OrderMenus;
+import christmas.dto.Result;
 import christmas.exception.ValidatingLoopTemplate;
 import christmas.service.ChristmasService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import christmas.vo.Day;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class ChristmasController {
@@ -27,7 +29,9 @@ public class ChristmasController {
         outputView.introduceEventPlanner();
         Day visitingDay = getVisitingDay();
         OrderMenus orderMenus = getOrderMenus();
-
+        Result result = christmasService.generateEventResult(visitingDay, orderMenus);
+        outputView.introduceApplyingEvents(visitingDay);
+        outputView.printFinalResult(result);
     }
 
     private Day getVisitingDay() {

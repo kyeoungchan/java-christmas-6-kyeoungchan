@@ -2,7 +2,8 @@ package christmas.consts;
 
 public enum Splitter {
     COMMA(","),
-    BAR("-");
+    BAR("-"),
+    LINE_SEPARATOR("\n");
 
     private final String regex;
 

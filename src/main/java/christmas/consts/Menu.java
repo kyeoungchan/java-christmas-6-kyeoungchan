@@ -33,4 +33,8 @@ public enum Menu {
     public boolean isThisMenu(String name) {
         return Objects.equals(this.name, name);
     }
+
+    public String getName() {
+        return name;
+    }
 }
