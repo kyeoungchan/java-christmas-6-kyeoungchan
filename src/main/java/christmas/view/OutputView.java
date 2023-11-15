@@ -1,6 +1,11 @@
 package christmas.view;
 
-import christmas.consts.*;
+import christmas.consts.Sentence;
+import christmas.consts.Menu;
+import christmas.consts.FormatForOutputView;
+import christmas.consts.Event;
+import christmas.consts.Splitter;
+import christmas.consts.Badge;
 import christmas.dto.Result;
 import christmas.vo.Day;
 import christmas.vo.Money;

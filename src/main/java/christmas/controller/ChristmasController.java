@@ -9,7 +9,6 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 import christmas.vo.Day;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class ChristmasController {
@@ -29,9 +28,7 @@ public class ChristmasController {
         outputView.introduceEventPlanner();
         Day visitingDay = getVisitingDay();
         OrderMenus orderMenus = getOrderMenus();
-        Result result = christmasService.generateEventResult(visitingDay, orderMenus);
-        outputView.introduceApplyingEvents(visitingDay);
-        outputView.printFinalResult(result);
+        generateResult(visitingDay, orderMenus);
     }
 
     private Day getVisitingDay() {
@@ -46,5 +43,11 @@ public class ChristmasController {
             EnumMap<Menu, Integer> orderMenuData = inputView.inputOrderMenus();
             return new OrderMenus(orderMenuData);
         });
+    }
+
+    private void generateResult(Day visitingDay, OrderMenus orderMenus) {
+        Result result = christmasService.generateEventResult(visitingDay, orderMenus);
+        outputView.introduceApplyingEvents(visitingDay);
+        outputView.printFinalResult(result);
     }
 }
