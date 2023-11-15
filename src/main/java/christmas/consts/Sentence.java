@@ -9,6 +9,9 @@ public enum Sentence {
     TOTAL_PRICE_BEFORE_DISCOUNT_PREVIEW("<할인 전 총주문 금액>"),
     PRESENTATION_PREVIEW("<증정 메뉴>"),
     BENEFIT_DETAILS_PREVIEW("<혜택 내역>"),
+    TOTAL_BENEFIT_AMOUNT_PREVIEW("<총혜택 금액>"),
+    TOTAL_PRICE_AFTER_DISCOUNT_PREVIEW("<할인 후 예상 결제 금액>"),
+    GIVING_BADGE_PREVIEW("<12월 이벤트 배지>"),
     NOTHING("없음");
 
     private final String message;

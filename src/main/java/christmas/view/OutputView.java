@@ -21,20 +21,9 @@ public class OutputView {
         printTotalPriceBeforeDiscount(result);
         printPresentationCount(result);
         printBenefitAmountsPerEvent(result);
-    }
-
-    private void printBenefitAmountsPerEvent(Result result) {
-        lineSeparate();
-        EnumMap<Event, Money> benefitAmountsPerEvent = result.benefitAmountsPerEvent();
-        System.out.println(Sentence.BENEFIT_DETAILS_PREVIEW.getMessage());
-        if (benefitAmountsPerEvent.isEmpty()) {
-            System.out.println(Sentence.NOTHING.getMessage());
-            return;
-        }
-        benefitAmountsPerEvent.forEach(((event, money)
-                -> System.out.println(FormatForOutputView.EVENT_BENEFIT_AMOUNT
-                .getFormatStringInt(event.getName(), money.getAmount())))
-        );
+        printTotalBenefitPrice(result);
+        printTotalPriceAfterDiscount(result);
+        printBadge(result);
     }
 
     private void printOrderMenus(Result result) {
@@ -62,6 +51,45 @@ public class OutputView {
         }
         presentationCount.forEach(((menu, count)
                 -> System.out.println(FormatForOutputView.MENU_COUNT.getFormatStringInt(menu.getName(), count))));
+    }
+
+    private void printBenefitAmountsPerEvent(Result result) {
+        lineSeparate();
+        EnumMap<Event, Money> benefitAmountsPerEvent = result.benefitAmountsPerEvent();
+        System.out.println(Sentence.BENEFIT_DETAILS_PREVIEW.getMessage());
+        if (benefitAmountsPerEvent.isEmpty()) {
+            System.out.println(Sentence.NOTHING.getMessage());
+            return;
+        }
+        benefitAmountsPerEvent.forEach(((event, money)
+                -> System.out.println(FormatForOutputView.EVENT_BENEFIT_AMOUNT
+                .getFormatStringInt(event.getName(), money.getAmount())))
+        );
+    }
+
+    private void printTotalBenefitPrice(Result result) {
+        lineSeparate();
+        Money totalBenefitPrice = result.totalBenefitPrice();
+        System.out.println(Sentence.TOTAL_BENEFIT_AMOUNT_PREVIEW.getMessage());
+        System.out.println(FormatForOutputView.AMOUNT.getFormatMoney(totalBenefitPrice.getAmount()));
+    }
+
+    private void printTotalPriceAfterDiscount(Result result) {
+        lineSeparate();
+        Money totalPriceAfterDiscount = result.totalPriceAfterDiscount();
+        System.out.println(Sentence.TOTAL_PRICE_AFTER_DISCOUNT_PREVIEW.getMessage());
+        System.out.println(FormatForOutputView.AMOUNT.getFormatMoney(totalPriceAfterDiscount.getAmount()));
+    }
+
+    private void printBadge(Result result) {
+        lineSeparate();
+        Badge badge = result.badge();
+        System.out.println(Sentence.GIVING_BADGE_PREVIEW.getMessage());
+        if (badge == null) {
+            System.out.println(Sentence.NOTHING.getMessage());
+            return;
+        }
+        System.out.println(badge);
     }
 
     private void lineSeparate() {
