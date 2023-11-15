@@ -21,22 +21,22 @@ class InputValidatorTest {
         for (int i = 0; i < 100; i++) {
             String positiveNumber = String.valueOf(i);
             String negativeNumber = String.valueOf(-i);
-            assertThatNoException().isThrownBy(() -> inputValidator.parseToValidatedInt(positiveNumber));
-            assertThatNoException().isThrownBy(() -> inputValidator.parseToValidatedInt(negativeNumber));
+            assertThatNoException().isThrownBy(() -> inputValidator.parseToValidatedDate(positiveNumber));
+            assertThatNoException().isThrownBy(() -> inputValidator.parseToValidatedDate(negativeNumber));
         }
     }
 
     @Test
     @DisplayName("null이나 공백을 입력하면 검증 실패")
     void emptyInput() {
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(null))
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(null))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(null)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(null)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(""))
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(""))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt("")).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate("")).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
     }
@@ -45,9 +45,9 @@ class InputValidatorTest {
     @DisplayName("숫자가 아닌 값을 입력하면 검증 실패")
     void notNumberInputted() {
         String notNumber = "가나다";
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(notNumber))
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(notNumber))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(notNumber)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(notNumber)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
     }
@@ -57,14 +57,14 @@ class InputValidatorTest {
     void unsafeMemoryInputted() {
         String tooBigNumber = "100001";
         String tooSmallNumber = "-100001";
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooBigNumber))
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(tooBigNumber))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooBigNumber)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(tooBigNumber)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooSmallNumber))
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(tooSmallNumber))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooSmallNumber)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(tooSmallNumber)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
     }
@@ -85,7 +85,7 @@ class InputValidatorTest {
         String unvalidatedInput = "해산물파스타-2,,레드와인-1";
         assertThatThrownBy(() -> inputValidator.validateMenus(unvalidatedInput))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(unvalidatedInput)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(unvalidatedInput)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_ORDER, ErrorMessage.ERROR_POSTFIX
         );
     }
@@ -103,7 +103,7 @@ class InputValidatorTest {
         String unvalidatedInput = "해산물파스타-2,-,초코케이크-1";
         assertThatThrownBy(() -> inputValidator.validateMenus(unvalidatedInput))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(unvalidatedInput)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(unvalidatedInput)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_ORDER, ErrorMessage.ERROR_POSTFIX
         );
     }
@@ -114,7 +114,7 @@ class InputValidatorTest {
         String unvalidatedInput = "해산물파스타-2,레드와인-1,초코케이크-";
         assertThatThrownBy(() -> inputValidator.validateMenus(unvalidatedInput))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(unvalidatedInput)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(unvalidatedInput)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_ORDER, ErrorMessage.ERROR_POSTFIX
         );
     }
@@ -125,7 +125,7 @@ class InputValidatorTest {
         String unvalidatedInput = "해산물파스타-2,레드와인-1-아이스크림,초코케이크-1";
         assertThatThrownBy(() -> inputValidator.validateMenus(unvalidatedInput))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(unvalidatedInput)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(unvalidatedInput)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_ORDER, ErrorMessage.ERROR_POSTFIX
         );
     }
@@ -136,7 +136,7 @@ class InputValidatorTest {
         String unvalidatedInput = "해산물파스타-2,레드와인-아이스크림,초코케이크-2";
         assertThatThrownBy(() -> inputValidator.validateMenus(unvalidatedInput))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(unvalidatedInput)).hasMessageContaining(
+        assertThatThrownBy(() -> inputValidator.parseToValidatedDate(unvalidatedInput)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_ORDER, ErrorMessage.ERROR_POSTFIX
         );
     }

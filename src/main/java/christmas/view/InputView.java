@@ -17,7 +17,7 @@ public class InputView {
     public int inputVisitingDay() {
         System.out.println(Sentence.ASKING_DAY_INPUT.getMessage());
         String inputtedDay = Console.readLine().trim();
-        return inputValidator.parseToValidatedInt(inputtedDay);
+        return inputValidator.parseToValidatedDate(inputtedDay);
     }
 
     public EnumMap<Menu, Integer> inputOrderMenus() {

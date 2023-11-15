@@ -19,17 +19,21 @@ public class InputValidator {
         this.menuOrderAssembler = menuOrderAssembler;
     }
 
-    public int parseToValidatedInt(String inputtedNumber) {
-        validateEmpty(inputtedNumber);
+    public int parseToValidatedDate(String inputtedNumber) {
         int validatedNumber = 0;
-        validatedNumber = validateNumber(inputtedNumber);
+        try {
+            validateEmpty(inputtedNumber);
+            validatedNumber = validateNumber(inputtedNumber);
+        } catch (IllegalArgumentException e) {
+            DayExceptionCaller.throwDayException(e);
+        }
         validateMemorySafe(validatedNumber);
         return validatedNumber;
     }
 
     private void validateEmpty(String inputtedString) {
         if (inputtedString == null || inputtedString.isEmpty()) {
-            DayExceptionCaller.throwDayException();
+            throw new IllegalArgumentException();
         }
     }
 
@@ -38,7 +42,7 @@ public class InputValidator {
         try {
             validatedNumber = Integer.parseInt(inputtedNumber);
         } catch (NumberFormatException e) {
-            DayExceptionCaller.throwDayException(e);
+            throw new IllegalArgumentException(e);
         }
         return validatedNumber;
     }
@@ -50,11 +54,16 @@ public class InputValidator {
     }
 
     public EnumMap<Menu, Integer> validateMenus(String inputtedDate) {
-        List<String> splitByComma = splitByRegex(inputtedDate, Splitter.COMMA.getRegex());
         List<String> splitMenuNames = new ArrayList<>();
-        List<String> splitCounts = new ArrayList<>();
-        splitToMenuAndCounts(splitByComma, splitMenuNames, splitCounts);
-        List<Integer> counts = getValidatedCounts(splitCounts);
+        List<Integer> counts = null;
+        try {
+            List<String> splitByComma = splitByRegex(inputtedDate, Splitter.COMMA.getRegex());
+            List<String> splitCounts = new ArrayList<>();
+            splitToMenuAndCounts(splitByComma, splitMenuNames, splitCounts);
+            counts = getValidatedCounts(splitCounts);
+        } catch (IllegalArgumentException e) {
+            OrderExceptionCaller.throwOrderException(e);
+        }
         return menuOrderAssembler.generateMenuCounts(splitMenuNames, counts);
     }
 
