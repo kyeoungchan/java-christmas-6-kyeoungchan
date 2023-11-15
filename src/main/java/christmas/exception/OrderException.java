@@ -4,7 +4,7 @@ import christmas.consts.ErrorMessage;
 
 public class OrderException extends ChristmasException {
     public OrderException() {
-        super(ErrorMessage.ORDER_ERROR.getMessage());
+        super(ErrorMessage.UNVALIDATED_ORDER.getMessage());
     }
 
     public OrderException(String message) {
@@ -16,6 +16,6 @@ public class OrderException extends ChristmasException {
     }
 
     public OrderException(Throwable cause) {
-        super(ErrorMessage.ORDER_ERROR.getMessage(), cause);
+        super(ErrorMessage.UNVALIDATED_ORDER.getMessage(), cause);
     }
 }

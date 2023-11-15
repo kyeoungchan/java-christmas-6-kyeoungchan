@@ -32,7 +32,7 @@ class OrderMenusTest {
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new OrderMenus(menuCount)).hasMessageContaining(
                         ErrorMessage.ERROR_PREFIX.getMessage(),
-                        ErrorMessage.ORDER_ERROR.getMessage(),
+                        ErrorMessage.UNVALIDATED_ORDER.getMessage(),
                         ErrorMessage.ERROR_POSTFIX.getMessage());
     }
 
@@ -45,7 +45,7 @@ class OrderMenusTest {
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new OrderMenus(menuCount)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(),
-                ErrorMessage.ORDER_ERROR.getMessage(),
+                ErrorMessage.UNVALIDATED_ORDER.getMessage(),
                 ErrorMessage.ERROR_POSTFIX.getMessage());
     }
 
