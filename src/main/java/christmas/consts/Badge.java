@@ -20,7 +20,7 @@ public enum Badge {
     }
 
     public boolean deserveThisBadge(Money totalBenefitPrice) {
-        return Math.abs(totalBenefitPrice.getAmount()) >= standardAmount;
+        return Math.abs(totalBenefitPrice.amount()) >= standardAmount;
     }
 
     @Override

@@ -27,7 +27,7 @@ public enum Menu {
     }
 
     public int getAmount() {
-        return price.getAmount();
+        return price.amount();
     }
 
     public boolean isThisMenu(String name) {

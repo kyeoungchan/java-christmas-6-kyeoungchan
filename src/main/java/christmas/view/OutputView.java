@@ -43,7 +43,7 @@ public class OutputView {
         lineSeparate();
         Money money = result.totalPriceBeforeDiscount();
         System.out.println(Sentence.TOTAL_PRICE_BEFORE_DISCOUNT_PREVIEW.getMessage());
-        System.out.println(FormatForOutputView.AMOUNT.getFormatMoney(money.getAmount()));
+        System.out.println(FormatForOutputView.AMOUNT.getFormatMoney(money.amount()));
     }
 
     private void printPresentationCount(Result result) {
@@ -68,7 +68,7 @@ public class OutputView {
         }
         benefitAmountsPerEvent.forEach(((event, money)
                 -> System.out.println(FormatForOutputView.EVENT_BENEFIT_AMOUNT
-                .getFormatStringInt(event.getName(), money.getAmount())))
+                .getFormatStringInt(event.getName(), money.amount())))
         );
     }
 
@@ -76,14 +76,14 @@ public class OutputView {
         lineSeparate();
         Money totalBenefitPrice = result.totalBenefitPrice();
         System.out.println(Sentence.TOTAL_BENEFIT_AMOUNT_PREVIEW.getMessage());
-        System.out.println(FormatForOutputView.AMOUNT.getFormatMoney(totalBenefitPrice.getAmount()));
+        System.out.println(FormatForOutputView.AMOUNT.getFormatMoney(totalBenefitPrice.amount()));
     }
 
     private void printTotalPriceAfterDiscount(Result result) {
         lineSeparate();
         Money totalPriceAfterDiscount = result.totalPriceAfterDiscount();
         System.out.println(Sentence.TOTAL_PRICE_AFTER_DISCOUNT_PREVIEW.getMessage());
-        System.out.println(FormatForOutputView.AMOUNT.getFormatMoney(totalPriceAfterDiscount.getAmount()));
+        System.out.println(FormatForOutputView.AMOUNT.getFormatMoney(totalPriceAfterDiscount.amount()));
     }
 
     private void printBadge(Result result) {

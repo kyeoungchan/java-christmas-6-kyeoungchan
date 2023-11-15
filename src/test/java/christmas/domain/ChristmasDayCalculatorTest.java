@@ -71,7 +71,9 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("1일이면 1,000원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountFirstDate() {
-        OrderForEvents orderForEvents = new OrderForEvents(new Day(1), tempMenuCounts, tempTotalOrderPrice);
+        OrderForEvents orderForEvents = new OrderForEvents(
+                new Day(1), tempMenuCounts, tempTotalOrderPrice
+        );
         Money expectedDiscountAmount = new Money(SIGN_INVERTER.getAmount() * 1_000);
         // -1,000원
         assertThat(christmasDayCalculator.discountPrice(orderForEvents))
@@ -81,7 +83,9 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("2일이면 1,100원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountSecondDate() {
-        OrderForEvents orderForEvents = new OrderForEvents(new Day(2), tempMenuCounts, tempTotalOrderPrice);
+        OrderForEvents orderForEvents = new OrderForEvents(
+                new Day(2), tempMenuCounts, tempTotalOrderPrice
+        );
         Money expectedDiscountAmount = new Money(SIGN_INVERTER.getAmount() * 1_100);
         assertThat(christmasDayCalculator.discountPrice(orderForEvents))
                 .isEqualTo(expectedDiscountAmount);
@@ -90,7 +94,9 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("8일이면 1,700원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountEighthDate() {
-        OrderForEvents orderForEvents = new OrderForEvents(new Day(8), tempMenuCounts, tempTotalOrderPrice);
+        OrderForEvents orderForEvents = new OrderForEvents(
+                new Day(8), tempMenuCounts, tempTotalOrderPrice
+        );
         Money expectedDiscountAmount = new Money(SIGN_INVERTER.getAmount() * 1_700);
         assertThat(christmasDayCalculator.discountPrice(orderForEvents))
                 .isEqualTo(expectedDiscountAmount);
@@ -99,7 +105,9 @@ class ChristmasDayCalculatorTest {
     @Test
     @DisplayName("25일이면 3,400원을 할인해준다. 참고로 메뉴 종류는 크리스마스 디데이 이벤트에 관여하지 않는다.")
     void discountTwentyFifthDate() {
-        OrderForEvents orderForEvents = new OrderForEvents(new Day(25), tempMenuCounts, tempTotalOrderPrice);
+        OrderForEvents orderForEvents = new OrderForEvents(
+                new Day(25), tempMenuCounts, tempTotalOrderPrice
+        );
         Money expectedDiscountAmount = new Money(SIGN_INVERTER.getAmount() * 3_400);
         assertThat(christmasDayCalculator.discountPrice(orderForEvents))
                 .isEqualTo(expectedDiscountAmount);

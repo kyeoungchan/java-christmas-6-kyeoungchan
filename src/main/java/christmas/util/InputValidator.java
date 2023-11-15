@@ -74,7 +74,8 @@ public class InputValidator {
                 .toList();
     }
 
-    private void splitToMenuAndCounts(List<String> splitByComma, List<String> splitMenuNames, List<String> splitCounts) {
+    private void splitToMenuAndCounts(
+            List<String> splitByComma, List<String> splitMenuNames, List<String> splitCounts) {
         int menuIndex = 0;
         int countIndex = 1;
         splitByComma.forEach(data -> {

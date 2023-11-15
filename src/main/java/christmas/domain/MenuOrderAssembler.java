@@ -22,7 +22,8 @@ public class MenuOrderAssembler {
         }
     }
 
-    private EnumMap<Menu, Integer> assembleOrderMenus(List<Menu> validatedMenuNames, List<Integer> counts) {
+    private EnumMap<Menu, Integer> assembleOrderMenus(
+            List<Menu> validatedMenuNames, List<Integer> counts) {
         EnumMap<Menu, Integer> orderMenus = new EnumMap<>(Menu.class);
         for (int i = 0; i < validatedMenuNames.size(); i++) {
             orderMenus.put(validatedMenuNames.get(i), counts.get(i));

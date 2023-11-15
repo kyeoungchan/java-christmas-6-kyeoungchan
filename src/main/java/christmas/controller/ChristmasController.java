@@ -17,7 +17,8 @@ public class ChristmasController {
     private final ValidatingLoopTemplate validatingTemplate;
     private final ChristmasService christmasService;
 
-    public ChristmasController(InputView inputView, OutputView outputView, ValidatingLoopTemplate validatingTemplate, ChristmasService christmasService) {
+    public ChristmasController(InputView inputView, OutputView outputView,
+                               ValidatingLoopTemplate validatingTemplate, ChristmasService christmasService) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.validatingTemplate = validatingTemplate;

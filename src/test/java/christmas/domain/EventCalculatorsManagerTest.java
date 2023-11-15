@@ -45,7 +45,7 @@ class EventCalculatorsManagerTest {
     void generateEventsResultWithPresent() {
         Day visitingDay = new Day(1);
         orderMenus.put(Menu.RED_WINE, 1); // 60_000
-        totalPrice = new Money(totalPrice.getAmount() + Menu.RED_WINE.getAmount());
+        totalPrice = new Money(totalPrice.amount() + Menu.RED_WINE.getAmount());
         EventsResult eventsResult =
                 eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);
         EnumMap<Event, Money> benefitAmounts = eventsResult.benefitAmounts();
@@ -96,7 +96,7 @@ class EventCalculatorsManagerTest {
     void generatePresentCount() {
         Day visitingDay = new Day(1);
         orderMenus.put(Menu.RED_WINE, 1); // 60_000
-        int updatedTotalAmount = totalPrice.getAmount() + Menu.RED_WINE.getAmount();
+        int updatedTotalAmount = totalPrice.amount() + Menu.RED_WINE.getAmount();
         totalPrice = new Money(updatedTotalAmount);
         EventsResult eventsResult =
                 eventCalculatorsManager.generateEventsResult(visitingDay, orderMenus, totalPrice);

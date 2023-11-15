@@ -48,7 +48,7 @@ public class EventCalculatorsManager {
         if (discountAmountByPresent == null) {
             return presentationCount;
         }
-        int positiveAmount = discountAmountByPresent.getAmount() * ConstantMoney.SIGN_INVERTER.getAmount();
+        int positiveAmount = discountAmountByPresent.amount() * ConstantMoney.SIGN_INVERTER.getAmount();
         presentationCount.put(Menu.CHAMPAGNE, positiveAmount / Menu.CHAMPAGNE.getAmount());
         return presentationCount;
     }
@@ -56,6 +56,6 @@ public class EventCalculatorsManager {
     private Money calculateTotalBenefitPrice() {
         return new Money(benefitAmounts
                 .values().stream()
-                .mapToInt(Money::getAmount).sum());
+                .mapToInt(Money::amount).sum());
     }
 }

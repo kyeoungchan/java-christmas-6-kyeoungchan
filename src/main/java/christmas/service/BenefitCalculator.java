@@ -65,6 +65,6 @@ public class BenefitCalculator {
 
     private Money calculateTotalPriceAfterDiscount(Money totalPriceBeforeDiscount,
                                                    Money totalBenefitPrice) {
-        return new Money(totalPriceBeforeDiscount.getAmount() + totalBenefitPrice.getAmount());
+        return new Money(totalPriceBeforeDiscount.amount() + totalBenefitPrice.amount());
     }
 }

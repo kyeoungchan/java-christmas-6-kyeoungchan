@@ -23,7 +23,8 @@ public class Configuration {
         return new ChristmasController(inputView, outputView, validatingTemplate, christmasService);
     }
 
-    private static ChristmasService getChristmasService(BenefitCalculator benefitCalculator, BadgeGiver badgeGiver) {
+    private static ChristmasService getChristmasService(
+            BenefitCalculator benefitCalculator, BadgeGiver badgeGiver) {
         return new ChristmasService(benefitCalculator, badgeGiver);
     }
 

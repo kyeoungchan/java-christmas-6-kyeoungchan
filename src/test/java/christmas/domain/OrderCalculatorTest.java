@@ -24,7 +24,7 @@ class OrderCalculatorTest {
         int totalAmount = menu1.getAmount() + menu2.getAmount() * menu2Count;
 
         OrderBeforeEvents result = orderCalculator.calculateTotalPriceIfCanApplyToEvents(menuCounts);
-        assertThat(result.totalOrderPrice().getAmount()).isEqualTo(totalAmount);
+        assertThat(result.totalOrderPrice().amount()).isEqualTo(totalAmount);
         assertThat(result.canApplyToEvents()).isTrue();
     }
 
@@ -37,7 +37,7 @@ class OrderCalculatorTest {
 
         OrderBeforeEvents result = orderCalculator.calculateTotalPriceIfCanApplyToEvents(menuCounts);
 
-        assertThat(result.totalOrderPrice().getAmount()).isEqualTo(totalAmount);
+        assertThat(result.totalOrderPrice().amount()).isEqualTo(totalAmount);
         assertThat(result.canApplyToEvents()).isFalse();
     }
 }

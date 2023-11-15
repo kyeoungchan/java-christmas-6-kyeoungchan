@@ -11,7 +11,7 @@ import java.util.List;
 public class PresentationCalculator implements EventCalculatorAdapter {
     @Override
     public boolean supports(Day day, Money priceBeforeDiscount, List<Menu> menus) {
-        return priceBeforeDiscount.getAmount()
+        return priceBeforeDiscount.amount()
                 >= ConstantMoney.STANDARD_FOR_PRESENTATION_EVENT.getAmount();
     }
 
@@ -23,7 +23,7 @@ public class PresentationCalculator implements EventCalculatorAdapter {
     }
 
     private int countPresentation(OrderForEvents orderForEvents) {
-        int totalOrderAmount = orderForEvents.totalOrderPrice().getAmount();
+        int totalOrderAmount = orderForEvents.totalOrderPrice().amount();
         return totalOrderAmount / ConstantMoney.STANDARD_FOR_PRESENTATION_EVENT.getAmount();
     }
 }

@@ -39,7 +39,7 @@ class BenefitCalculatorTest {
     @Test
     @DisplayName("BenefitCalculator는 할인 적용 전 총주문 금액도 반환한다.")
     void generateBenefitDetails() {
-        assertThat(calculateResult.totalPriceBeforeDiscount().getAmount())
+        assertThat(calculateResult.totalPriceBeforeDiscount().amount())
                 .isEqualTo(Menu.BARBCUE_RIBS.getAmount());
     }
 
