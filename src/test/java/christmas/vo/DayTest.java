@@ -1,6 +1,7 @@
 package christmas.vo;
 
 import christmas.consts.ConstantDate;
+import christmas.consts.ErrorMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class DayTest {
     private final List<Integer> fridays = List.of(1, 8, 15, 22, 29);
@@ -103,5 +105,31 @@ class DayTest {
     void isChristmasDDay() {
         int christmasDate = 25;
         assertThat(new Day(christmasDate).isChristmasDDay()).isTrue();
+    }
+
+    @Test
+    @DisplayName("1보다 작은 숫자의 날짜를 입력받으면 예외를 발생시킨다.")
+    void tooSmallDateInput() {
+        int loopCount = 10;
+        for (int i = 1; i <= loopCount; i++) {
+            int tooSmallDate = ConstantDate.FIRST_DATE.getDate() - i;
+            assertThatThrownBy(() -> new Day(tooSmallDate)).isInstanceOf(IllegalArgumentException.class);
+            assertThatThrownBy(() -> new Day(tooSmallDate)).hasMessageContaining(
+                    ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.ERROR_POSTFIX, ErrorMessage.UNVALIDATED_DATE
+            );
+        }
+    }
+
+    @Test
+    @DisplayName("1일~31일 이외의 날짜를 입력받으면 예외를 발생시킨다.")
+    void tooBigDateInput() {
+        int loopCount = 10;
+        for (int i = 1; i <= loopCount; i++) {
+            int tooBigDate = ConstantDate.LAST_DATE.getDate() + i;
+            assertThatThrownBy(() -> new Day(tooBigDate)).isInstanceOf(IllegalArgumentException.class);
+            assertThatThrownBy(() -> new Day(tooBigDate)).hasMessageContaining(
+                    ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.ERROR_POSTFIX, ErrorMessage.UNVALIDATED_DATE
+            );
+        }
     }
 }
