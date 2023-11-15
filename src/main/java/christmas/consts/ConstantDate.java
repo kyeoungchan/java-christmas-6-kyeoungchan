@@ -5,8 +5,8 @@ public enum ConstantDate {
     SATURDAY_UNIT_DATE(2),
     SUNDAY_UNIT_DATE(3),
     CHRISTMAS_D_DAY(25),
-    FIRST_DATE(1),
-    LAST_DATE(31),
+    FIRST(1),
+    LAST(31),
     WEEK_UNIT(7),
     CALCULATE_UNIT_FOR_CHRISTMAS_DAY_EVENT(1);
 

@@ -20,7 +20,7 @@ class DayTest {
 
     @BeforeEach
     void initializeAllDays() {
-        for (int date = 1; date <= ConstantDate.LAST_DATE.getDate(); date++) {
+        for (int date = 1; date <= ConstantDate.LAST.getDate(); date++) {
             allDays.add(date);
         }
     }
@@ -112,7 +112,7 @@ class DayTest {
     void tooSmallDateInput() {
         int loopCount = 10;
         for (int i = 1; i <= loopCount; i++) {
-            int tooSmallDate = ConstantDate.FIRST_DATE.getDate() - i;
+            int tooSmallDate = ConstantDate.FIRST.getDate() - i;
             assertThatThrownBy(() -> new Day(tooSmallDate)).isInstanceOf(IllegalArgumentException.class);
             assertThatThrownBy(() -> new Day(tooSmallDate)).hasMessageContaining(
                     ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.ERROR_POSTFIX, ErrorMessage.UNVALIDATED_DATE
@@ -125,7 +125,7 @@ class DayTest {
     void tooBigDateInput() {
         int loopCount = 10;
         for (int i = 1; i <= loopCount; i++) {
-            int tooBigDate = ConstantDate.LAST_DATE.getDate() + i;
+            int tooBigDate = ConstantDate.LAST.getDate() + i;
             assertThatThrownBy(() -> new Day(tooBigDate)).isInstanceOf(IllegalArgumentException.class);
             assertThatThrownBy(() -> new Day(tooBigDate)).hasMessageContaining(
                     ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.ERROR_POSTFIX, ErrorMessage.UNVALIDATED_DATE

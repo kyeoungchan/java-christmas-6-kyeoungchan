@@ -21,7 +21,7 @@ class ChristmasDayCalculatorTest {
 
     @BeforeEach
     void initializeSupportedDays() {
-        for (int date = 0; date <= ConstantDate.LAST_DATE.getDate(); date++) {
+        for (int date = ConstantDate.FIRST.getDate(); date <= ConstantDate.LAST.getDate(); date++) {
             Day day = new Day(date);
             if (day.isFriday() || day.isSaturday()) {
                 supportedDays.add(day);
@@ -60,7 +60,7 @@ class ChristmasDayCalculatorTest {
     @DisplayName("ChristmasDayCalculator는 계산을 하기 전 방문 예상 날짜가 금요일 혹은 토요일이 아니면 아니라고 말한다.")
     void notSupports() {
         Money tempMoney = new Money(0);
-        for (int date = 0; date <= ConstantDate.LAST_DATE.getDate(); date++) {
+        for (int date = ConstantDate.FIRST.getDate(); date <= ConstantDate.LAST.getDate(); date++) {
             Day day = new Day(date);
             if (!supportedDays.contains(day)) {
                 assertThat(christmasDayCalculator.supports(day, tempMoney, tempMenus)).isFalse();

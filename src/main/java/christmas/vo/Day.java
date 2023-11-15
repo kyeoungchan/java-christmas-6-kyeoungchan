@@ -14,7 +14,7 @@ public class Day {
     }
 
     private void validate(int date) {
-        if (date < ConstantDate.FIRST_DATE.getDate() || date > ConstantDate.LAST_DATE.getDate()) {
+        if (date < ConstantDate.FIRST.getDate() || date > ConstantDate.LAST.getDate()) {
             DayExceptionCaller.throwDayException();
         }
     }
