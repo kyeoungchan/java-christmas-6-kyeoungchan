@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.MenuOrderAssembler;
 import christmas.exception.ValidatingLoopTemplate;
 import christmas.util.InputValidator;
 import christmas.view.InputView;
@@ -12,7 +13,7 @@ public class ChristmasController {
     private final ValidatingLoopTemplate template;
 
     public ChristmasController() {
-        inputView = new InputView(new InputValidator());
+        inputView = new InputView(new InputValidator(new MenuOrderAssembler()));
         outputView = new OutputView();
         template = new ValidatingLoopTemplate();
     }

@@ -1,6 +1,7 @@
 package christmas.util;
 
 import christmas.consts.ErrorMessage;
+import christmas.domain.MenuOrderAssembler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class InputValidatorTest {
-    private final InputValidator inputValidator = new InputValidator();
+    private final InputValidator inputValidator = new InputValidator(new MenuOrderAssembler());
 
     @Test
     @DisplayName("100_000 이하의 숫자를 입력한다면 검증 성공")
@@ -62,5 +63,23 @@ class InputValidatorTest {
         assertThatThrownBy(() -> inputValidator.parseToValidatedInt(tooSmallNumber)).hasMessageContaining(
                 ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_DATE, ErrorMessage.ERROR_POSTFIX
         );
+    }
+
+    @Test
+    @DisplayName("쉼표 사이에 공백이면 검증 실패")
+    void inputBlankBetweenComma() {
+        String unvalidatedInput = "가,,다";
+        assertThatThrownBy(() -> inputValidator.validateMenus(unvalidatedInput))
+                .isExactlyInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> inputValidator.parseToValidatedInt(unvalidatedInput)).hasMessageContaining(
+                ErrorMessage.ERROR_PREFIX.getMessage(), ErrorMessage.UNVALIDATED_ORDER, ErrorMessage.ERROR_POSTFIX
+        );
+    }
+
+    @Test
+    @DisplayName("쉼표 전후로 공백은 자동으로 제거")
+    void inputBlankWithValidatedData() {
+        String validatedInput = "  해산물파스타-2   ,        레드와인-1    ,     초코케이크-1  ";
+        assertThatNoException().isThrownBy(() -> inputValidator.validateMenus(validatedInput));
     }
 }

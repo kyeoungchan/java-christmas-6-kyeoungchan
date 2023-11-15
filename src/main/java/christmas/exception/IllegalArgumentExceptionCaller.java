@@ -12,6 +12,10 @@ public class IllegalArgumentExceptionCaller {
     }
 
     private static String generateMessage(String message) {
-        return ErrorMessage.ERROR_PREFIX.getMessage() + message + ErrorMessage.ERROR_POSTFIX.getMessage();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ErrorMessage.ERROR_PREFIX.getMessage());
+        stringBuilder.append(message);
+        stringBuilder.append(ErrorMessage.ERROR_POSTFIX.getMessage());
+        return stringBuilder.toString();
     }
 }
