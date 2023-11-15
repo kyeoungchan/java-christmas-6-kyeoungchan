@@ -1,32 +1,46 @@
 package christmas.controller;
 
-import christmas.domain.MenuOrderAssembler;
+import christmas.consts.Menu;
+import christmas.domain.OrderMenus;
 import christmas.exception.ValidatingLoopTemplate;
-import christmas.util.InputValidator;
+import christmas.service.ChristmasService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import christmas.vo.Day;
 
+import java.util.EnumMap;
+
 public class ChristmasController {
     private final InputView inputView;
     private final OutputView outputView;
-    private final ValidatingLoopTemplate template;
+    private final ValidatingLoopTemplate validatingTemplate;
+    private final ChristmasService christmasService;
 
-    public ChristmasController() {
-        inputView = new InputView(new InputValidator(new MenuOrderAssembler()));
-        outputView = new OutputView();
-        template = new ValidatingLoopTemplate();
+    public ChristmasController(InputView inputView, OutputView outputView, ValidatingLoopTemplate validatingTemplate, ChristmasService christmasService) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.validatingTemplate = validatingTemplate;
+        this.christmasService = christmasService;
     }
 
     public void run() {
         outputView.introduceEventPlanner();
         Day visitingDay = getVisitingDay();
+        OrderMenus orderMenus = getOrderMenus();
+
     }
 
     private Day getVisitingDay() {
-        return template.execute(() -> {
+        return validatingTemplate.execute(() -> {
             int visitingDate = inputView.inputVisitingDay();
             return new Day(visitingDate);
+        });
+    }
+
+    private OrderMenus getOrderMenus() {
+        return validatingTemplate.execute(() -> {
+            EnumMap<Menu, Integer> orderMenuData = inputView.inputOrderMenus();
+            return new OrderMenus(orderMenuData);
         });
     }
 }

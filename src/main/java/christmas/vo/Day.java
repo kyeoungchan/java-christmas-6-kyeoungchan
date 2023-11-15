@@ -47,6 +47,10 @@ public class Day {
         return date - ConstantDate.CALCULATE_UNIT_FOR_CHRISTMAS_DAY_EVENT.getDate();
     }
 
+    public int getDate() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
