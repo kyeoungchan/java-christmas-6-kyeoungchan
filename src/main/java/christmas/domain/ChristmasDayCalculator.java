@@ -11,7 +11,8 @@ import java.util.List;
 public class ChristmasDayCalculator implements EventCalculatorAdapter {
     @Override
     public boolean supports(Day day, Money priceBeforeDiscount, List<Menu> menus) {
-        return day.isFriday() || day.isSaturday();
+        // 크리스마스 D-Day 할인 혜택은 day에서 예외가 발생하지 않는 한 항상 적용
+        return true;
     }
 
     @Override

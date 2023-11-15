@@ -33,7 +33,7 @@ public class BenefitCalculator {
         EventsResult eventsResult = getEventsResult(visitingDay, menuCount, totalPriceBeforeDiscount);
         Money totalBenefitPrice = eventsResult.totalBenefitPrice();
         Money totalPriceAfterDiscount =
-                calculateTotalPriceAfterDiscount(totalPriceBeforeDiscount, totalBenefitPrice);
+                calculateTotalPriceAfterDiscount(totalPriceBeforeDiscount, totalBenefitPrice, eventsResult.presentationCount());
         return new CalculateResult(menuCount, totalPriceBeforeDiscount,
                 eventsResult, totalPriceAfterDiscount);
     }
@@ -64,7 +64,12 @@ public class BenefitCalculator {
     }
 
     private Money calculateTotalPriceAfterDiscount(Money totalPriceBeforeDiscount,
-                                                   Money totalBenefitPrice) {
-        return new Money(totalPriceBeforeDiscount.amount() + totalBenefitPrice.amount());
+                                                   Money totalBenefitPrice,
+                                                   EnumMap<Menu, Integer> presentationCount) {
+        int totalPresentAmounts = presentationCount.entrySet()
+                .stream()
+                .mapToInt(e -> e.getKey().getAmount() * e.getValue())
+                .sum();
+        return new Money(totalPriceBeforeDiscount.amount() + totalBenefitPrice.amount() - totalPresentAmounts);
     }
 }
