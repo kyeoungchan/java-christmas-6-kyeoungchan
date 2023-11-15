@@ -1,7 +1,7 @@
 package christmas.vo;
 
 import christmas.consts.ConstantDate;
-import christmas.exception.DayException;
+import christmas.exception.DayExceptionCaller;
 
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ public class Day {
 
     private void validate(int date) {
         if (date < ConstantDate.FIRST_DATE.getDate() || date > ConstantDate.LAST_DATE.getDate()) {
-            throw new DayException();
+            DayExceptionCaller.throwDayException();
         }
     }
 

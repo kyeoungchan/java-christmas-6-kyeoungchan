@@ -93,6 +93,7 @@ class BenefitCalculatorTest {
     @DisplayName("처음부터 할인 혜택을 못 받을 고객이라면 빈 컬렉션과 0원의 혜택 금액을 반환한다.")
     void generateNoneEventResult() {
         menuCount.remove(Menu.BARBCUE_RIBS);
+        menuCount.put(Menu.BUTTON_MUSHROOM_SOUP, 1);
         OrderMenus orderMenus = new OrderMenus(menuCount);
         calculateResult = benefitCalculator.generateBenefitDetails(tempDay, orderMenus);
         assertThat(calculateResult.eventsResult().benefitAmounts()).isEmpty();
