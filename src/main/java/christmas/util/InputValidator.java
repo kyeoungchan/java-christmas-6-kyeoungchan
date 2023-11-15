@@ -58,6 +58,13 @@ public class InputValidator {
         return menuOrderAssembler.generateMenuCounts(splitMenuNames, counts);
     }
 
+    private List<String> splitByRegex(String data, String regex) {
+        return Arrays.stream(data.split(regex))
+                .map(String::trim)
+                .peek(this::validateEmpty)
+                .toList();
+    }
+
     private void splitToMenuAndCounts(List<String> splitByComma, List<String> splitMenuNames, List<String> splitCounts) {
         int menuIndex = 0;
         int countIndex = 1;
@@ -70,13 +77,6 @@ public class InputValidator {
             splitMenuNames.add(menuAndCounts.get(menuIndex));
             splitCounts.add(menuAndCounts.get(countIndex));
         });
-    }
-
-    private List<String> splitByRegex(String data, String regex) {
-        return Arrays.stream(data.split(regex))
-                .map(String::trim)
-                .peek(this::validateEmpty)
-                .toList();
     }
 
     private List<String> splitByRegex(String data, String regex, int fixedSize) {
